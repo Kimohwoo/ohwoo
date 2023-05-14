@@ -28,6 +28,7 @@ CREATE TABLE admin(
    regdate DATE
 );
 
+
 CREATE TABLE user_auth(
 	id VARCHAR(20),
     auth VARCHAR(20),
@@ -39,6 +40,8 @@ CREATE TABLE board(
    title VARCHAR(50),
    author VARCHAR(10),
    content VARCHAR(500),
+   regdate DATE,
+   updateday DATE,
    CONSTRAINT brdfk_author_user_id FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -56,3 +59,9 @@ CREATE TABLE likes(
     CONSTRAINT likefk_no_board_no FOREIGN KEY(no) REFERENCES board(no) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT likefk_uid_user_id FOREIGN KEY(uid) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+SELECT * FROM user;
+INSERT INTO user_auth(id, auth)
+VALUES ('1111', 'ROLE_USER');
+
+COMMIT;
