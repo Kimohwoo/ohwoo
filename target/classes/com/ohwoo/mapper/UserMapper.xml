@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ohwoo.mapper.UserMapper">
+	<resultMap id="memberMap" type="com.ohwoo.DTO.UserDTO">
+		<id property="id" column="id"/>
+		<result property="id" column="id"/>
+		<result property="password" column="password"/>
+		<result property="name" column="name"/>
+		<result property="nickName" column="nickname"/>
+		<result property="phone" column="phone"/>
+		<result property="address" column="address"/>
+		<result property="level" column="level"/>
+		<result property="regdate" column="regdate"/>
+		<collection property="authList" resultMap="authMap" />
+	<!-- 	<association property=""></association> 1 대 1관계-->
+	</resultMap>
+	<resultMap id="authMap" type="com.ohwoo.DTO.AuthDTO">
+		<result property="id" column="id"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	
+	<select id="read" resultMap="memberMap">
+	<![CDATA[
+		SELECT mem.userid, userpw, username, regdate, updatedate, auth.auth
+		FROM tbl_member mem
+		INNER JOIN tbl_member_auth auth 
+		ON mem.userid = auth.userid
+		WHERE mem.userid = #{userid}
+		
+		]]>
+	</select>
+	
+</mapper>
