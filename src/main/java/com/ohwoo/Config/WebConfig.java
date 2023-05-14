@@ -41,7 +41,7 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 	protected void customizeRegistration(ServletRegistration.Dynamic registration) {
 		// TODO Auto-generated method stub
 		registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
-		MultipartConfigElement multipart = new MultipartConfigElement("", -1, -1, -1);
+		MultipartConfigElement multipart = new MultipartConfigElement("C:\\Users\\kowko\\Desktop\\img", -1, -1, -1);
 		registration.setMultipartConfig(multipart);
 	}
 

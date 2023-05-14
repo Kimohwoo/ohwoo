@@ -4,9 +4,4 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 
 public class SecurityInitializer extends AbstractSecurityWebApplicationInitializer {
 
-	public SecurityInitializer() {
-		// TODO Auto-generated constructor stub
-		super(SecurityInitializer.class);
-	}
-
 }

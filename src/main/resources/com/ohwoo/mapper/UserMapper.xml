@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.ohwoo.mapper.UserMapper">
-	<resultMap id="memberMap" type="com.ohwoo.DTO.UserDTO">
+	<resultMap id="userMap" type="com.ohwoo.DTO.UserDTO">
 		<id property="id" column="id"/>
 		<result property="id" column="id"/>
 		<result property="password" column="password"/>
@@ -22,7 +22,7 @@
 		<result property="auth" column="auth"/>
 	</resultMap>
 	
-	<select id="read" resultMap="memberMap">
+	<select id="read" resultMap="userMap">
 	<![CDATA[
 		SELECT mem.userid, userpw, username, regdate, updatedate, auth.auth
 		FROM tbl_member mem
@@ -32,5 +32,20 @@
 		
 		]]>
 	</select>
+	
+	<insert id="regist">
+		INSERT INTO user(id, password, name, nickname, phone, address, level, regdate)
+		VALUES(
+			#{id},
+			#{password},
+			#{name},
+			#{nickName},
+			#{phone},
+			#{address},
+			#{level},
+			sysdate()
+		)
+	</insert>
+	
 	
 </mapper>
