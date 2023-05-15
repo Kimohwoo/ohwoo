@@ -60,8 +60,15 @@ CREATE TABLE likes(
     CONSTRAINT likefk_uid_user_id FOREIGN KEY(uid) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+
 SELECT * FROM user;
 INSERT INTO user_auth(id, auth)
 VALUES ('1111', 'ROLE_USER');
+
+종속 삭제 방법
+SET foreign_key_checks = 0;
+drop table board;
+SET foreign_key_checks = 1;
+
 
 COMMIT;

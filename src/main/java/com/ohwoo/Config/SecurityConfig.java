@@ -19,16 +19,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.antMatchers("/user/*").access("hasRole('ROLE_USER')")
-		        .antMatchers("/admin/*").access("hasRole('ROLE_ADMIN')")
-		        .anyRequest().permitAll();
+		http.authorizeRequests().antMatchers("/user/*").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+				.antMatchers("/admin/*").access("hasRole('ROLE_ADMIN')").antMatchers("/board/list").permitAll()
+				.antMatchers("/board/*").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')").anyRequest().permitAll();
 		http.formLogin();
 //		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login");
-		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true).deleteCookies("remember-me", "JSESSION_ID");
+		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true)
+				.deleteCookies("remember-me", "JSESSION_ID");
 
 	}
-	
+
 	@Bean
 	public AuthenticationSuccessHandler loginSuccessHandler() {
 		return new CustomLoginSuccessHandler();
