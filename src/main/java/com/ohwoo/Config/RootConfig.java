@@ -15,7 +15,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.log4j.Log4j;
 
 @Configuration
-@ComponentScan(basePackages = { "com.ohwoo.service" })
+@ComponentScan(basePackages = { "com.ohwoo.Service" })
 @MapperScan(basePackages = { "com.ohwoo.mapper" })
 @Log4j
 public class RootConfig {
@@ -29,7 +29,7 @@ public class RootConfig {
 				"jdbc:mysql://localhost:3306/ohwoodb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8");
 //		hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/ohwoodb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8");
 		hikariConfig.setUsername("root");
-		hikariConfig.setPassword("mysql");
+		hikariConfig.setPassword("1993dhdn!@");
 		HikariDataSource dataSource = new HikariDataSource(hikariConfig);
 		return dataSource;
 	}

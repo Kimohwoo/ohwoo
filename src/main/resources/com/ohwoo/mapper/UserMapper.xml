@@ -24,11 +24,11 @@
 	
 	<select id="read" resultMap="userMap">
 	<![CDATA[
-		SELECT mem.userid, userpw, username, regdate, updatedate, auth.auth
-		FROM tbl_member mem
-		INNER JOIN tbl_member_auth auth 
-		ON mem.userid = auth.userid
-		WHERE mem.userid = #{userid}
+		SELECT u.id, password, name, nickname, phone, address, level, regdate, auth
+		FROM user u
+		LEFT JOIN user_auth AS auth
+		ON u.id = auth.id
+		WHERE u.id = #{id}
 		
 		]]>
 	</select>

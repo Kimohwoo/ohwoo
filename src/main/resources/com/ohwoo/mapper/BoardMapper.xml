@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+
+<mapper namespace="com.ohwoo.mapper.BoardMapper">
+
+	<select id="read">
+	<![CDATA[
+		SELECT no, title, author, content, regdate, updateday
+		FROM board
+		INNER JOIN tbl_member_auth auth 
+		ON mem.userid = auth.userid
+		WHERE mem.userid = #{userid}
+		
+		]]>
+	</select>
+	
+	<insert id="regist">
+		INSERT INTO user(id, password, name, nickname, phone, address, level, regdate)
+		VALUES(
+			#{id},
+			#{password},
+			#{name},
+			#{nickName},
+			#{phone},
+			#{address},
+			#{level},
+			sysdate()
+		)
+	</insert>
+	
+
+</mapper>
