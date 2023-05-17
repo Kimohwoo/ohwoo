@@ -31,11 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		filter.setEncoding("UTF-8");
 //		filter.setForceEncoding(true);
 //		http.addFilterBefore(filter, CsrfFilter.class);
-		http.authorizeRequests()
+		http.csrf().disable()
+			.authorizeRequests()
 				.antMatchers("/user/addUser").permitAll()
-				.antMatchers("/user/*").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-				.antMatchers("/admin/*").access("hasRole('ROLE_ADMIN')").antMatchers("/board/list").permitAll()
-				.antMatchers("/board/*").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')").anyRequest().permitAll().and()
+				.antMatchers("/user/*").access("hasAnyRole('USER','ADMIN')")
+				.antMatchers("/admin/*").access("hasRole('ADMIN')").antMatchers("/board/list").permitAll()
+				.antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')").anyRequest().permitAll().and()
 				.rememberMe().tokenValiditySeconds(86400).key("myRememberMeKey")
 				.userDetailsService(userDetailsService());
 		http.formLogin().successHandler(loginSuccessHandler());
@@ -54,10 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// customPasswordEncoder를 생성하고 반환
 		return new BCryptPasswordEncoder();
 	}
-
+	
 //	@Bean
-//	public BCryptPasswordEncoder encodepw() {
-//		log.warn("BCryptPasswordEncoder");
+//	public BCryptPasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder();
 //	}
 
@@ -71,8 +71,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		log.info("auth configure -----------");
 //		auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
-//		auth.inMemoryAuthentication().withUser("admin99")
-//				.password("$2a$10$lM5pZ9YMi4Oolq6WtYudsu.ijifItpGGhCUIKTwWCyQeSVXFfp4d.").roles("ADMIN");
 		auth.userDetailsService(customUserDetailsService());
 	}
 

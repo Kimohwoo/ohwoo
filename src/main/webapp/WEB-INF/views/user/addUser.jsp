@@ -8,15 +8,21 @@
 		<title>Insert title here</title>
 	</head>
 	<body id="page-top">
-		<div>
-			<jsp:include page="../include/navHeader.jsp" />
-		</div>
-		<form id="contactForm" data-sb-form-api-token="API_TOKEN">
+<!-- 		<div> -->
+<%-- 			<jsp:include page="../include/navHeader.jsp" /> --%>
+<!-- 		</div> -->
+		<form id="form" action="/user/addUser" method="post">
 			<!-- Name input-->
 			<div class="form-floating mb-3">
 				<input class="form-control" id="username" type="text" placeholder="아이디를 입력해주세요" data-sb-validations="required" />
 				<label for="username">회원 아이디</label>
 				<div class="invalid-feedback" data-sb-feedback="id:required">Id가 필요합니다.</div>
+			</div>
+<!-- 			Password input -->
+			<div class="form-floating mb-3">
+			    <input class="form-control" id="password" type="password" placeholder="비밀번호를 입력해주세요" data-sb-validations="required" />
+			    <label for="password">Password</label>
+			    <div class="invalid-feedback" data-sb-feedback="password:required">Password가 필요합니다.</div>
 			</div>
 			<!-- Email address input-->
 			<div class="form-floating mb-3">
@@ -55,7 +61,10 @@
 			<!-- an error submitting the form-->
 			<div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
 			<!-- Submit Button-->
-		    <div class="d-grid"><button class="btn btn-primary btn-xl disabled" id="submitButton" type="submit">Submit</button></div>
+		    <div class="col-lg-8 align-self-baseline">
+		    	<button class="btn btn-primary btn-xl" id="submitButton" type="submit">Submit</button>
+		    	<a href="/" class="btn btn-primary btn-xl">홈</a>
+	    	</div>
 		</form>
 	</body>
 </html>

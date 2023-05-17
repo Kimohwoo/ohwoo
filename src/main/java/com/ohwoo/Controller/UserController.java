@@ -38,7 +38,7 @@ public class UserController {
 
 	@PostMapping("/addUser")
 	public void addUser1(UserDTO user, HttpSession session) {
-		log.info("회원가입");
+		log.info("회원가입" + user);
 		userService.register(user, session);
 	}
 

@@ -1,15 +1,23 @@
 package com.ohwoo.Controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.ohwoo.DTO.UserDTO;
+import com.ohwoo.Service.UserService;
+
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
+@AllArgsConstructor
 public class HomeController {
-
+	
 	@GetMapping("/")
 	public String home() {
 		log.info("home입니다");
@@ -28,5 +36,6 @@ public class HomeController {
 		}
 		
 	}
+	
 	
 }
