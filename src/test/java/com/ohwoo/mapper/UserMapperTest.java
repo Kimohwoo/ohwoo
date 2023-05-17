@@ -2,7 +2,10 @@ package com.ohwoo.mapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import org.junit.Test;
@@ -12,7 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ohwoo.DTO.AuthDTO;
 import com.ohwoo.DTO.UserDTO;
+import com.ohwoo.Service.UserService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -25,6 +30,8 @@ public class UserMapperTest {
 	@Setter(onMethod_ = @Autowired)
 	private UserMapper mapper;
 	@Setter(onMethod_ = @Autowired)
+	private UserService service;
+	@Setter(onMethod_ = @Autowired)
 	private DataSource ds;
 	@Setter(onMethod_ = @Autowired)
 	private PasswordEncoder passwordEncoder;
@@ -34,6 +41,30 @@ public class UserMapperTest {
 		UserDTO user = mapper.read("admin99");
 		log.info(user);
 		user.getAuthList().forEach(authDTO -> log.info(authDTO));
+	}
+
+//	@Test
+	public void testInsert() {
+		HttpSession session = null;
+		UserDTO user = new UserDTO();
+
+		user.setId("kkkk");
+		user.setPassword(passwordEncoder.encode("kkkk"));
+		user.setAddress("주소");
+		user.setLevel("4");
+		user.setName("kimSi");
+		user.setNickName("닉네임");
+		user.setPhone("010-1234-5678");
+
+		List<AuthDTO> auth = new ArrayList<AuthDTO>();
+		AuthDTO auth2 = new AuthDTO();
+		auth2.setId(user.getId());
+		auth2.setAuth("ROLE_USER");
+		auth.add(auth2);
+		user.setAuthList(auth);
+
+		service.register(user, session);
+
 	}
 
 //	@Test

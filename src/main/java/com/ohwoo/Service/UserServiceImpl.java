@@ -1,9 +1,13 @@
 package com.ohwoo.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import com.ohwoo.DTO.AuthDTO;
 import com.ohwoo.DTO.UserDTO;
 import com.ohwoo.mapper.UserMapper;
 
@@ -21,6 +25,13 @@ public class UserServiceImpl implements UserService {
 	public void register(UserDTO user, HttpSession session) {
 		// TODO Auto-generated method stub
 		log.info(user + "등록합니다");
+		user.setLevel("4등급");
+		List<AuthDTO> auth = new ArrayList<AuthDTO>();
+		AuthDTO auth2 = new AuthDTO();
+		auth2.setId(user.getId());
+		auth2.setAuth("ROLE_USER");
+		auth.add(auth2);
+		user.setAuthList(auth);
 		userMapper.regist(user);
 		session.setAttribute("sessionId", user.getId());
 	}
