@@ -8,11 +8,9 @@ public interface UserService {
 
 	public void register(UserDTO user, HttpSession session);
 
-//	public UserDTO login(UserDTO user, HttpSession session);
+	public String IdCheck(String username);
 
-//	public void logout(HttpSession session);
-
-	public UserDTO get(String id);
+	public UserDTO get(UserDTO user);
 
 	public boolean modify(UserDTO user);
 

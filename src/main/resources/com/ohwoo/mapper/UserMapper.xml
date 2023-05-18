@@ -6,7 +6,7 @@
 <mapper namespace="com.ohwoo.mapper.UserMapper">
 	<resultMap id="userMap" type="com.ohwoo.DTO.UserDTO">
 		<id property="id" column="id"/>
-		<result property="id" column="id"/>
+		<result property="username" column="id"/>
 		<result property="password" column="password"/>
 		<result property="name" column="name"/>
 		<result property="nickName" column="nickname"/>
@@ -18,7 +18,7 @@
 	<!-- 	<association property=""></association> 1 대 1관계-->
 	</resultMap>
 	<resultMap id="authMap" type="com.ohwoo.DTO.AuthDTO">
-		<result property="id" column="id"/>
+		<result property="username" column="id"/>
 		<result property="auth" column="auth"/>
 	</resultMap>
 	
@@ -28,15 +28,20 @@
 		FROM user u
 		LEFT JOIN user_auth AS auth
 		ON u.id = auth.id
-		WHERE u.id = #{id}
+		WHERE u.id = #{username}
 		
 		]]>
+	</select>
+	
+	<select id="idCheck" resultType="String">
+		SELECT id FROM user
+		WHERE id = #{username}
 	</select>
 	
 	<insert id="regist">
 		INSERT INTO user(id, password, name, nickname, phone, address, level, regdate)
 		VALUES(
-			#{id},
+			#{username},
 			#{password},
 			#{name},
 			#{nickName},
@@ -47,5 +52,12 @@
 		)
 	</insert>
 	
+	<insert id="registAuth">
+		INSERT INTO user_auth(id, auth)
+		VALUES(
+			#{username},
+			#{auth}
+		)
+	</insert>
 	
 </mapper>

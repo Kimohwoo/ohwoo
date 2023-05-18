@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ohwoo.DTO.UserDTO;
 import com.ohwoo.Service.UserService;
@@ -22,24 +23,49 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/login")
-	public void member() {
-		log.info("user컨트롤러");
+	public void getLogin() {
 	}
 
-	@GetMapping("/admin")
-	public void admin() {
-		log.info("admin 컨트롤러");
+	@PostMapping("/login")
+	public String login(UserDTO user, HttpSession session) {
+		log.info("로그인 : " + user);
+		user = userService.get(user);
+		return "/";
 	}
 
-	@GetMapping("/addUser")
+	@PostMapping("/id")
+	@ResponseBody
+	public String checkId(String username) {
+
+		log.info("idCheck" + username);
+		return userService.IdCheck(username);
+	}
+
+	@GetMapping("/regist")
 	public void addUser() {
 		log.info("addUser");
 	}
 
-	@PostMapping("/addUser")
+	@PostMapping("/regist")
 	public void addUser1(UserDTO user, HttpSession session) {
 		log.info("회원가입" + user);
 		userService.register(user, session);
+	}
+
+	@GetMapping("/modify")
+	public void modifyUser() {
+
+	}
+
+	@PostMapping("/modify")
+	public void modify() {
+
+	}
+
+	@PostMapping("/remove")
+	@ResponseBody
+	public void remove() {
+
 	}
 
 }

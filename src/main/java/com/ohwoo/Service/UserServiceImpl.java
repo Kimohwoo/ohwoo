@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ohwoo.DTO.AuthDTO;
@@ -22,7 +21,7 @@ import lombok.extern.log4j.Log4j;
 public class UserServiceImpl implements UserService {
 
 	private UserMapper userMapper;
-	
+
 	@Override
 	public void register(UserDTO user, HttpSession session) {
 		// TODO Auto-generated method stub
@@ -33,19 +32,25 @@ public class UserServiceImpl implements UserService {
 		log.info("유저 비밀번호 인코딩 확인 : " + user.getPassword());
 		List<AuthDTO> auth = new ArrayList<AuthDTO>();
 		AuthDTO auth2 = new AuthDTO();
-		auth2.setId(user.getId());
-		auth2.setAuth("ROLE_USER");
+		auth2.setUsername(user.getUsername());
+		auth2.setAuth("USER");
 		auth.add(auth2);
 		user.setAuthList(auth);
+		log.info("회원가입 최종확인용 : " + user);
 		userMapper.regist(user);
-		session.setAttribute("sessionId", user.getId());
+		userMapper.registAuth(auth2);
+		session.setAttribute("sessionId", user.getUsername());
 	}
 
 	@Override
-	public UserDTO get(String id) {
+	public UserDTO get(UserDTO user) {
 		// TODO Auto-generated method stub
-		log.info(id + "유저 Id");
-		return userMapper.read(id);
+		log.info(user + "유저 get");
+		UserDTO user2 = new UserDTO();
+		CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		log.info("인코딩 확인하기" + user.getPassword());
+		return userMapper.read(user.getUsername());
 	}
 
 	@Override
@@ -60,6 +65,17 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		log.info(user + "삭제");
 		return userMapper.delete(user) == 1;
+	}
+
+	@Override
+	public String IdCheck(String username) {
+		// TODO Auto-generated method stub
+		String getName = userMapper.idCheck(username);
+		if (getName.equals(username)) {
+			return "사용 불가능한 아이디 입니다.";
+		} else {
+			return "사용 가능한 아이디 입니다.";
+		}
 	}
 
 }

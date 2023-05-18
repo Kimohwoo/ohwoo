@@ -29,7 +29,7 @@ public class RootConfig {
 				"jdbc:mysql://localhost:3306/ohwoodb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8");
 //		hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/ohwoodb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8");
 		hikariConfig.setUsername("root");
-		hikariConfig.setPassword("1993dhdn!@");
+		hikariConfig.setPassword("mysql");
 		HikariDataSource dataSource = new HikariDataSource(hikariConfig);
 		return dataSource;
 	}

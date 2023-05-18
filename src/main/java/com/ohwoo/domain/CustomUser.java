@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @Setter
 public class CustomUser extends User {
-	
+
 	private static final long serialVersionID = 1L;
 	private UserDTO user;
 
@@ -23,9 +23,10 @@ public class CustomUser extends User {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public CustomUser(UserDTO user) {
-		super(user.getId(), user.getPassword(), user.getAuthList().stream().map(auth -> new SimpleGrantedAuthority(auth.getAuth())).collect(Collectors.toList()));
+		super(user.getUsername(), user.getPassword(), user.getAuthList().stream()
+				.map(auth -> new SimpleGrantedAuthority(auth.getAuth())).collect(Collectors.toList()));
 		this.user = user;
 	}
 

@@ -4,15 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.ohwoo.domain.CustomLoginSuccessHandler;
 import com.ohwoo.domain.CustomUserDetailsService;
@@ -31,16 +28,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		filter.setEncoding("UTF-8");
 //		filter.setForceEncoding(true);
 //		http.addFilterBefore(filter, CsrfFilter.class);
-		http.csrf().disable()
-			.authorizeRequests()
-				.antMatchers("/user/addUser").permitAll()
-				.antMatchers("/user/*").access("hasAnyRole('USER','ADMIN')")
-				.antMatchers("/admin/*").access("hasRole('ADMIN')").antMatchers("/board/list").permitAll()
-				.antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')").anyRequest().permitAll().and()
-				.rememberMe().tokenValiditySeconds(86400).key("myRememberMeKey")
+		http.csrf().disable().authorizeRequests().antMatchers("/user/addUser").permitAll().antMatchers("/user/*")
+				.access("hasAnyRole('USER','ADMIN')").antMatchers("/admin/*").access("hasRole('ADMIN')")
+				.antMatchers("/board/list").permitAll().antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')")
+				.anyRequest().permitAll().and().rememberMe().tokenValiditySeconds(86400).key("myRememberMeKey")
 				.userDetailsService(userDetailsService());
-		http.formLogin().successHandler(loginSuccessHandler());
-//		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login");
+//		http.formLogin().successHandler(loginSuccessHandler());
+		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login");
 		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true)
 				.deleteCookies("remember-me", "JSESSION_ID");
 	}
@@ -55,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// customPasswordEncoder를 생성하고 반환
 		return new BCryptPasswordEncoder();
 	}
-	
+
 //	@Bean
 //	public BCryptPasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder();

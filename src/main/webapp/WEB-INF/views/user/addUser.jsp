@@ -14,13 +14,13 @@
 		<form id="form" action="/user/addUser" method="post">
 			<!-- Name input-->
 			<div class="form-floating mb-3">
-				<input class="form-control" id="username" type="text" placeholder="아이디를 입력해주세요" data-sb-validations="required" />
+				<input class="form-control" id="username" name="username" type="text" placeholder="아이디를 입력해주세요" data-sb-validations="required" />
 				<label for="username">회원 아이디</label>
 				<div class="invalid-feedback" data-sb-feedback="id:required">Id가 필요합니다.</div>
 			</div>
 <!-- 			Password input -->
 			<div class="form-floating mb-3">
-			    <input class="form-control" id="password" type="password" placeholder="비밀번호를 입력해주세요" data-sb-validations="required" />
+			    <input class="form-control" id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요" data-sb-validations="required" />
 			    <label for="password">Password</label>
 			    <div class="invalid-feedback" data-sb-feedback="password:required">Password가 필요합니다.</div>
 			</div>
@@ -33,16 +33,16 @@
 			</div>
 			<!-- Phone number input-->
 			<div class="form-floating mb-3">
-			    <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
+			    <input class="form-control" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
 			    <label for="phone">Phone number</label>
 			    <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
 			</div>
 			<!-- Message input-->
-			<div class="form-floating mb-3">
-			    <textarea class="form-control" id="message" type="text" placeholder="Enter your message here..." style="height: 10rem" data-sb-validations="required"></textarea>
-			    <label for="message">Message</label>
-			    <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-			</div>
+<!-- 			<div class="form-floating mb-3"> -->
+<!-- 			    <textarea class="form-control" id="message" type="text" placeholder="Enter your message here..." style="height: 10rem" data-sb-validations="required"></textarea> -->
+<!-- 			    <label for="message">Message</label> -->
+<!-- 			    <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div> -->
+<!-- 			</div> -->
 			<!-- Submit success message-->
 			<!---->
 			<!-- This is what your users will see when the form-->
