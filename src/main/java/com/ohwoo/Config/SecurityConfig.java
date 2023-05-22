@@ -7,19 +7,23 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.ohwoo.domain.CustomLoginSuccessHandler;
+import com.ohwoo.domain.CustomPasswordEncoder;
 import com.ohwoo.domain.CustomUserDetailsService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Configuration
 @EnableWebSecurity
 @Log4j
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	private CustomUserDetailsService userDetailService;
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
@@ -45,19 +49,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	public PasswordEncoder customPasswordEncoder() {
-		// customPasswordEncoder를 생성하고 반환
-		return new BCryptPasswordEncoder();
-	}
-
-//	@Bean
-//	public BCryptPasswordEncoder passwordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
-
-	@Bean
 	public UserDetailsService customUserDetailsService() {
 		return new CustomUserDetailsService();
+	}
+	
+	@Bean
+	public PasswordEncoder customPasswordEncoder() {
+		// customPasswordEncoder를 생성하고 반환
+		return new CustomPasswordEncoder();
 	}
 
 	@Override
@@ -65,7 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		log.info("auth configure -----------");
 //		auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
-		auth.userDetailsService(customUserDetailsService());
+//		auth.userDetailsService(customUserDetailsService());
+		auth.userDetailsService(userDetailService).passwordEncoder(customPasswordEncoder());
 	}
 
 }

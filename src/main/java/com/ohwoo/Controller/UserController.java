@@ -29,7 +29,7 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(UserDTO user, HttpSession session) {
 		log.info("로그인 : " + user);
-		user = userService.get(user);
+		user = userService.login(user);
 		return "/";
 	}
 
@@ -49,7 +49,8 @@ public class UserController {
 	@PostMapping("/regist")
 	public void addUser1(UserDTO user, HttpSession session) {
 		log.info("회원가입" + user);
-		userService.register(user, session);
+		userService.register(user);
+		session.setAttribute("sessionId", user.getUsername());
 	}
 
 	@GetMapping("/modify")

@@ -6,11 +6,11 @@ import com.ohwoo.DTO.UserDTO;
 
 public interface UserService {
 
-	public void register(UserDTO user, HttpSession session);
+	public void register(UserDTO user);
 
 	public String IdCheck(String username);
 
-	public UserDTO get(UserDTO user);
+	public UserDTO login(UserDTO user);
 
 	public boolean modify(UserDTO user);
 

@@ -3,8 +3,8 @@ package com.ohwoo.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ohwoo.DTO.AuthDTO;
@@ -20,33 +20,32 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
+	@Autowired
+	private PasswordEncoder customEncoder;
 	private UserMapper userMapper;
 
 	@Override
-	public void register(UserDTO user, HttpSession session) {
+	public void register(UserDTO user) {
 		// TODO Auto-generated method stub
 		log.info(user + "등록합니다");
-		CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-		user.setLevel("4등급");
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setPassword(customEncoder.encode(user.getPassword()));
 		log.info("유저 비밀번호 인코딩 확인 : " + user.getPassword());
+		userMapper.regist(user);
+		log.info("유저 만들어지는지 확인" + user);
+		
 		List<AuthDTO> auth = new ArrayList<AuthDTO>();
 		AuthDTO auth2 = new AuthDTO();
 		auth2.setUsername(user.getUsername());
 		auth2.setAuth("USER");
 		auth.add(auth2);
 		user.setAuthList(auth);
-		log.info("회원가입 최종확인용 : " + user);
-		userMapper.regist(user);
 		userMapper.registAuth(auth2);
-		session.setAttribute("sessionId", user.getUsername());
 	}
 
 	@Override
-	public UserDTO get(UserDTO user) {
+	public UserDTO login(UserDTO user) {
 		// TODO Auto-generated method stub
 		log.info(user + "유저 get");
-		UserDTO user2 = new UserDTO();
 		CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		log.info("인코딩 확인하기" + user.getPassword());

@@ -36,14 +36,17 @@ public class UserMapperTest {
 	@Setter(onMethod_ = @Autowired)
 	private PasswordEncoder passwordEncoder;
 
-//	@Test
+	@Test
 	public void testGetList() {
-		UserDTO user = mapper.read("admin99");
-		log.info(user);
+		UserDTO user = new UserDTO();
+		user.setUsername("111222");
+		user.setPassword("111222");
+		user = service.login(user);
+		log.info("유저 확인" + user);
 		user.getAuthList().forEach(authDTO -> log.info(authDTO));
 	}
 
-	@Test
+//	@Test
 	public void testIdCheck() {
 
 		String username = "0011";
@@ -54,7 +57,6 @@ public class UserMapperTest {
 
 //	@Test
 	public void testInsert() {
-		HttpSession session = null;
 		UserDTO user = new UserDTO();
 
 		user.setUsername("kkkk");
@@ -72,7 +74,7 @@ public class UserMapperTest {
 		auth.add(auth2);
 		user.setAuthList(auth);
 
-		service.register(user, session);
+		service.register(user);
 
 	}
 
