@@ -12,21 +12,20 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class CustomUserDetailsService implements UserDetailsService{
+public class CustomUserDetailsService implements UserDetailsService {
 
-	@Setter(onMethod_=@Autowired)
+	@Setter(onMethod_ = @Autowired)
 	private UserMapper userMapper;
-	
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		log.warn("Load User BY UserName : " + username);
-		
+
 		UserDTO user = userMapper.read(username);
 		log.warn("queried By user Mapper : " + user);
-		
-		return user == null? null : new CustomUser(user);
+
+		return user == null ? null : new CustomUser(user);
 	}
 
 }

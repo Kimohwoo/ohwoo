@@ -14,16 +14,12 @@ import com.ohwoo.domain.CustomLoginSuccessHandler;
 import com.ohwoo.domain.CustomPasswordEncoder;
 import com.ohwoo.domain.CustomUserDetailsService;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Configuration
 @EnableWebSecurity
 @Log4j
-@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	private CustomUserDetailsService userDetailService;
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
@@ -52,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public UserDetailsService customUserDetailsService() {
 		return new CustomUserDetailsService();
 	}
-	
+
 	@Bean
 	public PasswordEncoder customPasswordEncoder() {
 		// customPasswordEncoder를 생성하고 반환
@@ -65,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		log.info("auth configure -----------");
 //		auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
 //		auth.userDetailsService(customUserDetailsService());
-		auth.userDetailsService(userDetailService).passwordEncoder(customPasswordEncoder());
+		auth.userDetailsService(customUserDetailsService()).passwordEncoder(customPasswordEncoder());
 	}
 
 }

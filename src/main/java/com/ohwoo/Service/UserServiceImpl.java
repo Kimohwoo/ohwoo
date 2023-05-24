@@ -20,9 +20,9 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
+	private UserMapper userMapper;
 	@Autowired
 	private PasswordEncoder customEncoder;
-	private UserMapper userMapper;
 
 	@Override
 	public void register(UserDTO user) {
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 		log.info("유저 비밀번호 인코딩 확인 : " + user.getPassword());
 		userMapper.regist(user);
 		log.info("유저 만들어지는지 확인" + user);
-		
+
 		List<AuthDTO> auth = new ArrayList<AuthDTO>();
 		AuthDTO auth2 = new AuthDTO();
 		auth2.setUsername(user.getUsername());
