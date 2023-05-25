@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().permitAll().and().rememberMe().tokenValiditySeconds(86400).key("myRememberMeKey")
 				.userDetailsService(userDetailsService());
 //		http.formLogin().successHandler(loginSuccessHandler());
-		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login");
+		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login").successHandler(loginSuccessHandler());
 		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true)
 				.deleteCookies("remember-me", "JSESSION_ID");
 	}

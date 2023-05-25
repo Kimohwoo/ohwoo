@@ -41,12 +41,12 @@ public class UserController {
 		return userService.IdCheck(username);
 	}
 
-	@GetMapping("/regist")
+	@GetMapping("/addUser")
 	public void addUser() {
 		log.info("addUser");
 	}
 
-	@PostMapping("/regist")
+	@PostMapping("/addUser")
 	public void addUser1(UserDTO user, HttpSession session) {
 		log.info("회원가입" + user);
 		userService.register(user);

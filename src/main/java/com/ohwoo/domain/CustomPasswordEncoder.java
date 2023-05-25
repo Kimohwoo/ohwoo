@@ -19,7 +19,8 @@ public class CustomPasswordEncoder implements PasswordEncoder {
 	public boolean matches(CharSequence rawPassword, String encodedPassword) {
 		// TODO Auto-generated method stub
 		log.warn("matches : " + rawPassword + " : " + encodedPassword);
-		return rawPassword.toString().equals(encodedPassword);
+		
+		return BCrypt.checkpw(rawPassword.toString(), encodedPassword);
 	}
 
 }

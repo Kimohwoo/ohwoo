@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 		List<AuthDTO> auth = new ArrayList<AuthDTO>();
 		AuthDTO auth2 = new AuthDTO();
 		auth2.setUsername(user.getUsername());
-		auth2.setAuth("USER");
+		auth2.setAuth("ROLE_USER");
 		auth.add(auth2);
 		user.setAuthList(auth);
 		userMapper.registAuth(auth2);

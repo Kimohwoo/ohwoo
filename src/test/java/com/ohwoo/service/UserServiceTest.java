@@ -33,8 +33,8 @@ public class UserServiceTest {
 	@Test
 	public void testGet() {
 		UserDTO user = new UserDTO();
-		user.setUsername("111222");
-		user.setPassword("11122");
+		user.setUsername("111");
+		user.setPassword("111");
 		log.info(service.login(user));
 	}
 
