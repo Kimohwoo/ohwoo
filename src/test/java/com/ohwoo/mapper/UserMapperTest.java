@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import org.junit.Test;
@@ -41,7 +40,7 @@ public class UserMapperTest {
 		UserDTO user = new UserDTO();
 		user.setUsername("111222");
 		user.setPassword("111222");
-		user = service.login(user);
+//		user = service.login(user);
 		log.info("유저 확인" + user);
 		user.getAuthList().forEach(authDTO -> log.info(authDTO));
 	}

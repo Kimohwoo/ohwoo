@@ -29,7 +29,8 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(UserDTO user, HttpSession session) {
 		log.info("로그인 : " + user);
-		user = userService.login(user);
+//		user = userService.login(user);
+
 		return "/";
 	}
 

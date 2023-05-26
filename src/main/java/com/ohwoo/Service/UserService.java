@@ -1,7 +1,5 @@
 package com.ohwoo.Service;
 
-import javax.servlet.http.HttpSession;
-
 import com.ohwoo.DTO.UserDTO;
 
 public interface UserService {
@@ -10,7 +8,7 @@ public interface UserService {
 
 	public String IdCheck(String username);
 
-	public UserDTO login(UserDTO user);
+//	public UserDTO login(UserDTO user);
 
 	public boolean modify(UserDTO user);
 

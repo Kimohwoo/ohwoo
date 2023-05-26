@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.ohwoo.DTO.AuthDTO;
 import com.ohwoo.DTO.UserDTO;
-import com.ohwoo.domain.CustomPasswordEncoder;
 import com.ohwoo.mapper.UserMapper;
 
 import lombok.AllArgsConstructor;
@@ -42,15 +41,15 @@ public class UserServiceImpl implements UserService {
 		userMapper.registAuth(auth2);
 	}
 
-	@Override
-	public UserDTO login(UserDTO user) {
-		// TODO Auto-generated method stub
-		log.info(user + "유저 get");
-		CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		log.info("인코딩 확인하기" + user.getPassword());
-		return userMapper.read(user.getUsername());
-	}
+//	@Override
+//	public UserDTO login(UserDTO user) {
+//		// TODO Auto-generated method stub
+//		log.info("유저 Login" + user);
+//		CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+//		user.setPassword(passwordEncoder.encode(user.getPassword()));
+//		log.info("인코딩 확인하기" + user.getPassword());
+//		return userMapper.read(user.getUsername());
+//	}
 
 	@Override
 	public boolean modify(UserDTO user) {
