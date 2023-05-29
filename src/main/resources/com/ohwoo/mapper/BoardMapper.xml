@@ -6,27 +6,29 @@
 
 <mapper namespace="com.ohwoo.mapper.BoardMapper">
 
-	<select id="read">
+	<select id="read" resultType="com.ohwoo.DTO.BoardDTO">
 	<![CDATA[
 		SELECT no, title, author, content, regdate, updateday
 		FROM board
-		INNER JOIN tbl_member_auth auth 
-		ON mem.userid = auth.userid
-		WHERE mem.userid = #{userid}
+		WHERE no = #{no}
+		]]>
+	</select>
+	
+	<select id="getListPaging" resultType="com.ohwoo.DTO.BoardDTO">
+	<![CDATA[
+		SELECT no, title, author, content, regdate, updateday
+		FROM board
+		LIMIT #{amount} OFFSET #{skip}
 		
 		]]>
 	</select>
 	
 	<insert id="regist">
-		INSERT INTO user(id, password, name, nickname, phone, address, level, regdate)
+		INSERT INTO board(title, author, content, regdate)
 		VALUES(
-			#{id},
-			#{password},
-			#{name},
-			#{nickName},
-			#{phone},
-			#{address},
-			#{level},
+			#{title},
+			#{author},
+			#{content},
 			sysdate()
 		)
 	</insert>

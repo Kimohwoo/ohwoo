@@ -8,8 +8,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.ohwoo.domain.CustomAccessDeniedHandler;
+import com.ohwoo.domain.CustomLoginFailureHandler;
 import com.ohwoo.domain.CustomLoginSuccessHandler;
 import com.ohwoo.domain.CustomPasswordEncoder;
 import com.ohwoo.domain.CustomUserDetailsService;
@@ -33,8 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/board/list").permitAll().antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')")
 				.anyRequest().permitAll().and().rememberMe().tokenValiditySeconds(86400).key("myRememberMeKey")
 				.userDetailsService(userDetailsService());
-//		http.formLogin().successHandler(loginSuccessHandler());
-		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login").successHandler(loginSuccessHandler());
+		http.formLogin().successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler());
+//		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login").successHandler(loginSuccessHandler());
 		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true)
 				.deleteCookies("remember-me", "JSESSION_ID");
 	}
@@ -42,6 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public AuthenticationSuccessHandler loginSuccessHandler() {
 		return new CustomLoginSuccessHandler();
+	}
+	
+	@Bean
+	public AuthenticationFailureHandler loginFailureHandler() {
+		return new CustomLoginFailureHandler();
 	}
 
 	@Bean

@@ -9,8 +9,6 @@ public interface BoardService {
 
 	public void regist(BoardDTO board);
 
-	public long getPostId(String id);
-
 	public BoardDTO read(long no);
 
 	public boolean update(BoardDTO board);
@@ -18,8 +16,6 @@ public interface BoardService {
 	public boolean delete(BoardDTO board);
 
 	public int hit(BoardDTO board);
-
-	public List<BoardDTO> getList();
 
 	public List<BoardDTO> getListPaging(Criteria cri);
 

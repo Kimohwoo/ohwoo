@@ -38,9 +38,8 @@ public class UserMapperTest {
 	@Test
 	public void testGetList() {
 		UserDTO user = new UserDTO();
-		user.setUsername("111222");
-		user.setPassword("111222");
-//		user = service.login(user);
+		user.setUsername("user2");
+		user = service.login(user);
 		log.info("유저 확인" + user);
 		user.getAuthList().forEach(authDTO -> log.info(authDTO));
 	}
@@ -58,8 +57,8 @@ public class UserMapperTest {
 	public void testInsert() {
 		UserDTO user = new UserDTO();
 
-		user.setUsername("kkkk");
-		user.setPassword(passwordEncoder.encode("kkkk"));
+		user.setUsername("user2");
+		user.setPassword(passwordEncoder.encode("user2"));
 		user.setAddress("주소");
 		user.setLevel("4");
 		user.setName("kimSi");

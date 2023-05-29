@@ -26,13 +26,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public long getPostId(String id) {
-		// TODO Auto-generated method stub
-		log.info(id + "post번호 들고오기");
-		return mapper.getPostId(id);
-	}
-
-	@Override
 	public BoardDTO read(long no) {
 		// TODO Auto-generated method stub
 		log.info("board 1 읽기" + no);
@@ -60,17 +53,11 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.hit(board);
 	}
 
-	@Override
-	public List<BoardDTO> getList() {
-		// TODO Auto-generated method stub
-		log.info("BoardList 들고오기");
-		return null;
-	}
 
 	@Override
 	public List<BoardDTO> getListPaging(Criteria cri) {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.getListPaging(cri);
 	}
 
 }

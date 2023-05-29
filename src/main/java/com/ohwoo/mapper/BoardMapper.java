@@ -9,8 +9,6 @@ public interface BoardMapper {
 
 	public void regist(BoardDTO board);
 
-	public long getPostId(String id);
-
 	public BoardDTO read(long no);
 
 	public int update(BoardDTO board);
@@ -18,8 +16,6 @@ public interface BoardMapper {
 	public int delete(BoardDTO board);
 
 	public int hit(BoardDTO board);
-
-	public List<BoardDTO> getList();
 
 	public List<BoardDTO> getListPaging(Criteria cri);
 

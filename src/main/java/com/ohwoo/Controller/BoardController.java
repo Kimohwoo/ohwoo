@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ohwoo.DTO.BoardDTO;
+import com.ohwoo.DTO.Criteria;
 import com.ohwoo.Service.BoardService;
 
 import lombok.AllArgsConstructor;
@@ -22,16 +25,27 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class BoardController {
 
-	private BoardService boardService;
+	private final BoardService boardService;
 
 	@GetMapping()
-	public List<BoardDTO> list() {
+	public ModelAndView list(@RequestParam int pageNum, @RequestParam int amount) {
 		log.info("list");
-		return boardService.getList();
+		ModelAndView mv = new ModelAndView("/board/list");
+		Criteria cri;
+		if((pageNum != 0) && amount != 0) {
+			cri = new Criteria(pageNum, amount);
+		} else {
+			cri = new Criteria();
+		}
+		
+		List<BoardDTO> list = boardService.getListPaging(cri);
+		mv.addObject("list", list);
+		
+		return mv;
 	}
 
 //	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-	@GetMapping("{no}")
+//	@GetMapping("{no}")
 	public BoardDTO get(@PathVariable int no) {
 		log.info("get");
 		return boardService.read(no);

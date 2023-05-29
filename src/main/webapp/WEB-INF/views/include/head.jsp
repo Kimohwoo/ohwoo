@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
 	<!-- Favicon-->
-	<link rel="icon" type="image/x-icon" href="/resources/assets/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="<c:url value="/resources/assets/favicon.ico" />" />
 	<!-- Bootstrap Icons-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 	<!-- Google fonts-->
@@ -14,4 +13,4 @@
 	<!-- SimpleLightbox plugin CSS-->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
 	<!-- Core theme CSS (includes Bootstrap)-->
-	<link href="/resources/css/styles.css" rel="stylesheet" />
+	<link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet" />

@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class UserController {
 
-	private UserService userService;
+	private final UserService userService;
 
 	@GetMapping("/login")
 	public void getLogin() {
@@ -29,7 +29,7 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(UserDTO user, HttpSession session) {
 		log.info("로그인 : " + user);
-//		user = userService.login(user);
+		user = userService.login(user);
 
 		return "/";
 	}

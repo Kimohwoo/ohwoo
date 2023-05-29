@@ -14,7 +14,7 @@
 	</appender>
 	
 	<!-- Application Loggers --> <!-- log4j 설정파일 : 아파치 홈페이지에서 검색 -->
-	<logger name="com.springCareer.controller">
+	<logger name="com.ohwoo.controller">
 		<level value="info" />
 	</logger>
 	

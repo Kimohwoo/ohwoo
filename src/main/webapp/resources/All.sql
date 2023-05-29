@@ -13,6 +13,7 @@ CREATE TABLE user(
    id VARCHAR(50) PRIMARY KEY,
    password VARCHAR(100),
    name VARCHAR(10),
+   
    nickname VARCHAR(10),
    phone VARCHAR(13),
    address VARCHAR(50),
@@ -71,5 +72,7 @@ SET foreign_key_checks = 0;
 drop table board;
 SET foreign_key_checks = 1;
 
+//보드 increment 초기화
+ALTER TABLE board AUTO_INCREMENT = 1;
 
 COMMIT;

@@ -12,12 +12,10 @@ import org.springframework.context.annotation.Configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import lombok.extern.log4j.Log4j;
 
 @Configuration
 @ComponentScan(basePackages = { "com.ohwoo.Service" })
 @MapperScan(basePackages = { "com.ohwoo.mapper" })
-@Log4j
 public class RootConfig {
 
 	@Bean
@@ -25,7 +23,6 @@ public class RootConfig {
 		HikariConfig hikariConfig = new HikariConfig();
 
 		hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		log.info(hikariConfig.getDriverClassName());
 		hikariConfig.setJdbcUrl(
 				"jdbc:mysql://localhost:3306/ohwoodb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8");
 		hikariConfig.setUsername("root");

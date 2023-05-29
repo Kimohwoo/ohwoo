@@ -2,13 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="./include/head.jsp" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
     <head>
     <meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
-        <title>Creative - Start Bootstrap Theme</title>
+        <title>Home</title>
     </head>
 	<body id="page-top">
     	<jsp:include page="./include/navHeader.jsp" />

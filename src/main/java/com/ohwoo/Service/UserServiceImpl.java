@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void register(UserDTO user) {
 		// TODO Auto-generated method stub
-		log.info(user + "등록합니다");
 		user.setPassword(customEncoder.encode(user.getPassword()));
 		log.info("유저 비밀번호 인코딩 확인 : " + user.getPassword());
 		userMapper.regist(user);
@@ -41,15 +40,14 @@ public class UserServiceImpl implements UserService {
 		userMapper.registAuth(auth2);
 	}
 
-//	@Override
-//	public UserDTO login(UserDTO user) {
-//		// TODO Auto-generated method stub
-//		log.info("유저 Login" + user);
-//		CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-//		user.setPassword(passwordEncoder.encode(user.getPassword()));
-//		log.info("인코딩 확인하기" + user.getPassword());
-//		return userMapper.read(user.getUsername());
-//	}
+	@Override
+	public UserDTO login(UserDTO user) {
+		// TODO Auto-generated method stub
+		log.info("유저 Login" + user);
+		user.setPassword(customEncoder.encode(user.getPassword()));
+		log.info("인코딩 확인하기" + user.getPassword());
+		return userMapper.read(user.getUsername());
+	}
 
 	@Override
 	public boolean modify(UserDTO user) {
@@ -70,9 +68,9 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		String getName = userMapper.idCheck(username);
 		if (getName.equals(username)) {
-			return "사용 불가능한 아이디 입니다.";
+			return "Use";
 		} else {
-			return "사용 가능한 아이디 입니다.";
+			return "OK";
 		}
 	}
 
