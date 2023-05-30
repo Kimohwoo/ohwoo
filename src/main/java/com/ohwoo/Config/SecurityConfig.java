@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.ohwoo.domain.CustomAccessDeniedHandler;
 import com.ohwoo.domain.CustomLoginFailureHandler;
 import com.ohwoo.domain.CustomLoginSuccessHandler;
 import com.ohwoo.domain.CustomPasswordEncoder;
@@ -33,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		http.addFilterBefore(filter, CsrfFilter.class);
 		http.csrf().disable().authorizeRequests().antMatchers("/user/addUser").permitAll().antMatchers("/user/*")
 				.access("hasAnyRole('USER','ADMIN')").antMatchers("/admin/*").access("hasRole('ADMIN')")
-				.antMatchers("/board/list").permitAll().antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')")
+//				.antMatchers("/board/list").permitAll().antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')")
 				.anyRequest().permitAll().and().rememberMe().tokenValiditySeconds(86400).key("myRememberMeKey")
 				.userDetailsService(userDetailsService());
 		http.formLogin().successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler());
@@ -46,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationSuccessHandler loginSuccessHandler() {
 		return new CustomLoginSuccessHandler();
 	}
-	
+
 	@Bean
 	public AuthenticationFailureHandler loginFailureHandler() {
 		return new CustomLoginFailureHandler();

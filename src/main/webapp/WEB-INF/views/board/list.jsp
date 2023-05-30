@@ -10,15 +10,16 @@
 <title>Insert title here</title>
 </head>
 <body style="background-color: black;">
-	<jsp:include page="../include/navHeader.jsp" />
+	<jsp:include page="../include/navHeader.jsp"/>
 	<div class="container">
-		<h3 style="text-align: center; padding-top: 50px;">게시판</h3>
+		<h3 style="text-align: center; padding-top: 50px; color: white;">게시판</h3>
 		<table class="table table-border table-striped table-dark table-hover">
 			<thead>
 				<tr>
-					<th>no</th>
-					<th>title</th>
-					<th>author</th>
+					<th>글번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>등록일</th>
 				</tr>
 			</thead>
 			<tbody>

@@ -27,22 +27,54 @@ public class BoardController {
 
 	private final BoardService boardService;
 
-	@GetMapping()
-	public ModelAndView list(@RequestParam int pageNum, @RequestParam int amount) {
-		log.info("list");
+	@GetMapping("")
+	public ModelAndView boardList() {
+		log.info("확인");
 		ModelAndView mv = new ModelAndView("/board/list");
+		Criteria cri = new Criteria();
+		List<BoardDTO> list = boardService.getListPaging(cri);
+		mv.addObject("list", list);
+
+		return mv;
+	}
+
+	@GetMapping(produces = "application/json;charset=UTF-8")
+	public List<BoardDTO> RequestList(@RequestParam int pageNum, @RequestParam int amount) {
+		log.info("list");
 		Criteria cri;
-		if((pageNum != 0) && amount != 0) {
+		if ((pageNum != 0) && amount != 0) {
 			cri = new Criteria(pageNum, amount);
 		} else {
 			cri = new Criteria();
 		}
-		
+
 		List<BoardDTO> list = boardService.getListPaging(cri);
-		mv.addObject("list", list);
-		
-		return mv;
+
+		return list;
 	}
+
+	// ObjectMapper를 사용함
+//	@ResponseBody
+//	public String list(@RequestParam int pageNum, @RequestParam int amount) {
+//		log.info("list");
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonList = "";
+//
+//		try {
+//			return jsonList = mapper.writeValueAsString(list);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+////		Map result = new HashMap();
+////		result.put("list", jsonList);
+////		result.put("code", "200");
+////		result.put("boardList", "list");
+//
+////		mv.addObject("list", list);
+//
+//		return "";
+//	}
 
 //	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 //	@GetMapping("{no}")
