@@ -2,6 +2,7 @@ package com.ohwoo.Controller;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,20 +28,10 @@ public class BoardController {
 
 	private final BoardService boardService;
 
-	@GetMapping("")
-	public ModelAndView boardList() {
-		log.info("확인");
-		ModelAndView mv = new ModelAndView("/board/list");
-		Criteria cri = new Criteria();
-		List<BoardDTO> list = boardService.getListPaging(cri);
-		mv.addObject("list", list);
-
-		return mv;
-	}
-
-	@GetMapping(produces = "application/json;charset=UTF-8")
-	public List<BoardDTO> RequestList(@RequestParam int pageNum, @RequestParam int amount) {
+	@GetMapping(value="", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ModelAndView RequestList(@RequestParam int pageNum, @RequestParam int amount) {
 		log.info("list");
+		ModelAndView mv = new ModelAndView("/board/list");
 		Criteria cri;
 		if ((pageNum != 0) && amount != 0) {
 			cri = new Criteria(pageNum, amount);
@@ -49,8 +40,8 @@ public class BoardController {
 		}
 
 		List<BoardDTO> list = boardService.getListPaging(cri);
-
-		return list;
+		mv.addObject("list", list);
+		return mv;
 	}
 
 	// ObjectMapper를 사용함
@@ -77,7 +68,7 @@ public class BoardController {
 //	}
 
 //	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-//	@GetMapping("{no}")
+	@GetMapping(value = "{no}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public BoardDTO get(@PathVariable int no) {
 		log.info("get");
 		return boardService.read(no);
