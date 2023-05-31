@@ -26,13 +26,13 @@ public class UserController {
 	public void getLogin() {
 	}
 
-	@PostMapping("/login")
-	public String login(UserDTO user, HttpSession session) {
-		log.info("로그인 : " + user);
-		user = userService.login(user);
-
-		return "/";
-	}
+//	@PostMapping("/login")
+//	public String login(UserDTO user, HttpSession session) {
+//		log.info("로그인 : " + user);
+//		user = userService.login(user);
+//
+//		return "/";
+//	}
 
 	@PostMapping("/id")
 	@ResponseBody

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ public class BoardController {
 
 	private final BoardService boardService;
 
-	@GetMapping(value="", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ModelAndView RequestList(@RequestParam int pageNum, @RequestParam int amount) {
 		log.info("list");
 		ModelAndView mv = new ModelAndView("/board/list");
@@ -44,51 +45,26 @@ public class BoardController {
 		return mv;
 	}
 
-	// ObjectMapper를 사용함
-//	@ResponseBody
-//	public String list(@RequestParam int pageNum, @RequestParam int amount) {
-//		log.info("list");
-//		ObjectMapper mapper = new ObjectMapper();
-//		String jsonList = "";
-//
-//		try {
-//			return jsonList = mapper.writeValueAsString(list);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-////		Map result = new HashMap();
-////		result.put("list", jsonList);
-////		result.put("code", "200");
-////		result.put("boardList", "list");
-//
-////		mv.addObject("list", list);
-//
-//		return "";
-//	}
-
-//	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-	@GetMapping(value = "{no}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/detail/{no}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public BoardDTO get(@PathVariable int no) {
 		log.info("get");
 		return boardService.read(no);
 	}
 
-	@PostMapping("{board}")
-//	@PreAuthorize("isAuthenticated()")
-	public BoardDTO register(@PathVariable BoardDTO board) {
+	@PostMapping("/detail/{no}")
+	public BoardDTO register(@RequestBody BoardDTO board) {
 		boardService.regist(board);
 		return board;
 	}
 
-	@PutMapping("{board}")
-	public BoardDTO modify(@PathVariable BoardDTO board) {
+	@PutMapping("")
+	public BoardDTO modify(@RequestBody BoardDTO board) {
 		boardService.update(board);
 		return board;
 	}
 
-	@DeleteMapping("{board}")
-	public void delete(@PathVariable BoardDTO board) {
+	@DeleteMapping("")
+	public void delete(@RequestBody BoardDTO board) {
 		boardService.delete(board);
 	}
 

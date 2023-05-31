@@ -1,11 +1,11 @@
 package com.ohwoo.Config;
 
-
 import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -32,9 +32,10 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 	protected Filter[] getServletFilters() {
 		// TODO Auto-generated method stub
 		CharacterEncodingFilter filter = new CharacterEncodingFilter();
+		HiddenHttpMethodFilter hidenFilter = new HiddenHttpMethodFilter();
 		filter.setEncoding("UTF-8");
 		filter.setForceEncoding(true);
-		return new Filter[] { filter };
+		return new Filter[] { filter, hidenFilter };
 	}
 
 	@Override
