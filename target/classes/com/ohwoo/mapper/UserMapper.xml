@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ohwoo.mapper.UserMapper">
+	<resultMap id="userMap" type="com.ohwoo.DTO.UserDTO">
+		<result property="username" column="id"/>
+		<result property="password" column="password"/>
+		<result property="name" column="name"/>
+		<result property="nickName" column="nickname"/>
+		<result property="phone" column="phone"/>
+		<result property="address" column="address"/>
+		<result property="level" column="level"/>
+		<result property="regdate" column="regdate"/>
+		<collection property="authList" resultMap="authMap" />
+	<!-- 	<association property=""></association> 1 대 1관계-->
+	</resultMap>
+	<resultMap id="authMap" type="com.ohwoo.DTO.AuthDTO">
+		<result property="username" column="id"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	
+	<select id="read" resultMap="userMap">
+	<![CDATA[
+		SELECT u.id, password, name, nickname, phone, address, level, regdate, auth
+		FROM user u
+		LEFT JOIN user_auth AS auth
+		ON u.id = auth.id
+		WHERE u.id = #{username}
+		
+		]]>
+	</select>
+	
+	<select id="idCheck" resultType="String">
+		SELECT id FROM user
+		WHERE id = #{username}
+	</select>
+	
+	<insert id="regist">
+		INSERT INTO user(id, password, name, nickname, phone, address, level, regdate)
+		VALUES(
+			#{username},
+			#{password},
+			#{name},
+			#{nickName},
+			#{phone},
+			#{address},
+			#{level},
+			sysdate()
+		)
+	</insert>
+	
+	<insert id="registAuth">
+		INSERT INTO user_auth(id, auth)
+		VALUES(
+			#{username},
+			#{auth}
+		)
+	</insert>
+	
+	<update id="modify">
+		UPDATE INTO user(id, password, name, nickname, phone, address, level)
+		VALUES(
+			#{username},
+			#{password},
+			#{name},
+			#{nickName},
+			#{phone},
+			#{address},
+			#{level}
+		)
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM user 
+		WHERE id = #{username} 
+		AND password > #{password};
+	</delete>
+	
+</mapper>

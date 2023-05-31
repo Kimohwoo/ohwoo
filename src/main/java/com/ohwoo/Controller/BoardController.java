@@ -1,6 +1,8 @@
 package com.ohwoo.Controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ohwoo.DTO.BoardDTO;
 import com.ohwoo.DTO.Criteria;
@@ -29,10 +30,37 @@ public class BoardController {
 
 	private final BoardService boardService;
 
-	@GetMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ModelAndView RequestList(@RequestParam int pageNum, @RequestParam int amount) {
+//	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ModelAndView RequestList(@RequestParam int pageNum, @RequestParam int amount) {
+//		log.info("list");
+//		ModelAndView mv = new ModelAndView("/board/list");
+//		Criteria cri;
+//		if ((pageNum != 0) && amount != 0) {
+//			cri = new Criteria(pageNum, amount);
+//		} else {
+//			cri = new Criteria();
+//		}
+//
+//		List<BoardDTO> list = boardService.getListPaging(cri);
+//		mv.addObject("list", list);
+//		return mv;
+//	}
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> RequestList() {
 		log.info("list");
-		ModelAndView mv = new ModelAndView("/board/list");
+		Criteria cri = new Criteria();
+		
+
+		List<BoardDTO> list = boardService.getListPaging(cri);
+		Map<String, Object> boardList = new HashMap<String, Object>();
+		boardList.put("item", list);
+		
+		return boardList;
+	}
+	
+	@GetMapping(value="{criteria}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> RequestList(@RequestParam int pageNum, @RequestParam int amount) {
+		log.info("list");
 		Criteria cri;
 		if ((pageNum != 0) && amount != 0) {
 			cri = new Criteria(pageNum, amount);
@@ -41,8 +69,10 @@ public class BoardController {
 		}
 
 		List<BoardDTO> list = boardService.getListPaging(cri);
-		mv.addObject("list", list);
-		return mv;
+		Map<String, Object> boardList = new HashMap<String, Object>();
+		boardList.put("item", list);
+		
+		return boardList;
 	}
 
 	@GetMapping(value = "/detail/{no}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
