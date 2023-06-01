@@ -2,6 +2,11 @@ package com.ohwoo.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.ohwoo.DTO.User;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -15,6 +20,14 @@ public class HomeController {
 	public String home() {
 		log.info("home입니다");
 		return "home";
+	}
+	
+	@PostMapping(value="android")
+	@ResponseBody
+	public String android(@RequestBody User user) {
+		
+		System.out.println("id: " + user.getId() + "password: " + user.getPassword());
+		return "1";
 	}
 
 //	@GetMapping("/customLogin")
