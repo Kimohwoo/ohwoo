@@ -32,11 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		http.addFilterBefore(filter, CsrfFilter.class);
 		http.csrf().disable().authorizeRequests().antMatchers("/user/addUser").permitAll().antMatchers("/user/*")
 				.access("hasAnyRole('USER','ADMIN')").antMatchers("/admin/*").access("hasRole('ADMIN')")
-//				.antMatchers("/board/list").permitAll().antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')")
+				.antMatchers("/board/list").permitAll().antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')")
 				.anyRequest().permitAll().and().rememberMe().tokenValiditySeconds(86400).key("myRememberMeKey")
 				.userDetailsService(userDetailsService());
-		http.formLogin().successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler());
-//		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login").successHandler(loginSuccessHandler());
+//		http.formLogin().successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler());
+		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login").successHandler(loginSuccessHandler());
 		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true)
 				.deleteCookies("remember-me", "JSESSION_ID");
 	}
@@ -66,8 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub
 		log.info("auth configure -----------");
-//		auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
-//		auth.userDetailsService(customUserDetailsService());
 		auth.userDetailsService(customUserDetailsService()).passwordEncoder(customPasswordEncoder());
 	}
 

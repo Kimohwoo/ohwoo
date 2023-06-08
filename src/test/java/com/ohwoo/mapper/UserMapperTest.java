@@ -44,7 +44,7 @@ public class UserMapperTest {
 		user.getAuthList().forEach(authDTO -> log.info(authDTO));
 	}
 
-//	@Test
+	@Test
 	public void testIdCheck() {
 
 		String username = "0011";
@@ -53,7 +53,7 @@ public class UserMapperTest {
 
 	}
 
-//	@Test
+	@Test
 	public void testInsert() {
 		UserDTO user = new UserDTO();
 
@@ -76,7 +76,7 @@ public class UserMapperTest {
 
 	}
 
-//	@Test
+	@Test
 	public void testInsertUser() {
 
 		String sql = " INSERT INTO user(id, password, name) VALUES (?,?,?)  ";
@@ -124,7 +124,7 @@ public class UserMapperTest {
 
 	}
 
-//	@Test
+	@Test
 	public void testInsertUserAuth() {
 
 		String sql = " INSERT INTO user_auth(id, auth) VALUES (?,?)  ";

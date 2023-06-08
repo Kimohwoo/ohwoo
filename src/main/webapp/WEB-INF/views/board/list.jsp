@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/head.jsp" %>
@@ -36,8 +35,6 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<a class="btn btn-secondary" href="/board/?pageNum=${1}&amount=${10}}">이전 페이지</a>
-		<a class="btn btn-primary" href="/board/?pageNum=${2}&amount=${20}}">다음 페이지</a>
 	</div>
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.ohwoo.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,7 +30,7 @@ public class UserServiceTest {
 		assertNotNull(service);
 	}
 
-//	@Test
+	@Test
 	public void testGet() {
 		UserDTO user = new UserDTO();
 		user.setUsername("111");
