@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ohwoo.DTO.BoardDTO;
@@ -45,40 +44,48 @@ public class BoardController {
 //		mv.addObject("list", list);
 //		return mv;
 //	}
+//	@GetMapping()
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> RequestList() {
 		log.info("list");
 		Criteria cri = new Criteria();
-		
 
 		List<BoardDTO> list = boardService.getListPaging(cri);
 		Map<String, Object> boardList = new HashMap<String, Object>();
 		boardList.put("item", list);
-		
-		return boardList;
-	}
-	
-	@GetMapping(value="{criteria}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> RequestList(@RequestParam int pageNum, @RequestParam int amount) {
-		log.info("list");
-		Criteria cri;
-		if ((pageNum != 0) && amount != 0) {
-			cri = new Criteria(pageNum, amount);
-		} else {
-			cri = new Criteria();
-		}
 
-		List<BoardDTO> list = boardService.getListPaging(cri);
-		Map<String, Object> boardList = new HashMap<String, Object>();
-		boardList.put("item", list);
-		
 		return boardList;
 	}
 
-	@GetMapping(value = "/detail/{no}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	@GetMapping(value = "{criteria}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public Map<String, Object> RequestList(@RequestParam int pageNum, @RequestParam int amount) {
+//		log.info("list");
+//		Criteria cri;
+//		if ((pageNum != 0) && amount != 0) {
+//			cri = new Criteria(pageNum, amount);
+//		} else {
+//			cri = new Criteria();
+//		}
+//
+//		List<BoardDTO> list = boardService.getListPaging(cri);
+//		Map<String, Object> boardList = new HashMap<String, Object>();
+//		boardList.put("item", list);
+//
+//		return boardList;
+//	}
+
+//	@GetMapping(value = "/detail/{no}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	@GetMapping(value = "/detail/{no}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	@GetMapping(value = "/detail/{no}")
+	@RequestMapping(value = "/detail/{no}")
 	public BoardDTO get(@PathVariable int no) {
-		log.info("get");
+		log.info("디테일: get");
 		return boardService.read(no);
+	}
+
+	@RequestMapping("/detail2/3")
+	public String get2() {
+		return "test";
 	}
 
 	@PostMapping("/detail/{no}")

@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-
 @Configuration
 @ComponentScan(basePackages = { "com.ohwoo.Service" })
 @MapperScan(basePackages = { "com.ohwoo.mapper" })
