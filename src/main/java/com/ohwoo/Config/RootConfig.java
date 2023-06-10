@@ -19,8 +19,8 @@ public class RootConfig {
 
 	@Bean
 	public DataSource dataSource() {
+		
 		HikariConfig hikariConfig = new HikariConfig();
-
 		hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		hikariConfig.setJdbcUrl(
 				"jdbc:mysql://localhost:3306/ohwoodb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8");
