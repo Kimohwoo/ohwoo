@@ -9,7 +9,7 @@ public interface UserMapper {
 
 	public String idCheck(String username);
 
-	public void regist(UserDTO user);
+	public int regist(UserDTO user);
 
 	public void registAuth(AuthDTO auth);
 

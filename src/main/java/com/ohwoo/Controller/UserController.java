@@ -3,10 +3,7 @@ package com.ohwoo.Controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.ohwoo.DTO.UserDTO;
 import com.ohwoo.Service.UserService;
@@ -14,17 +11,13 @@ import com.ohwoo.Service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
-@Controller
+@RestController
 @RequestMapping("/user/*")
 @AllArgsConstructor
 @Log4j
 public class UserController {
 
 	private final UserService userService;
-
-	@GetMapping("/login")
-	public void getLogin() {
-	}
 
 //	@PostMapping("/login")
 //	public String login(UserDTO user, HttpSession session) {
@@ -37,21 +30,23 @@ public class UserController {
 	@PostMapping("/id")
 	@ResponseBody
 	public String checkId(String username) {
-
 		log.info("idCheck" + username);
 		return userService.IdCheck(username);
 	}
 
 	@GetMapping("/addUser")
 	public void addUser() {
-		log.info("addUser");
+
 	}
 
 	@PostMapping("/addUser")
-	public void addUser1(UserDTO user, HttpSession session) {
+	public UserDTO addUser1(UserDTO user, HttpSession session) {
 		log.info("회원가입" + user);
-		userService.register(user);
-		session.setAttribute("sessionId", user.getUsername());
+		if(userService.register(user)){
+			session.setAttribute("sessionId", user.getUsername());
+			return userService.login(user);
+		}
+		return null;
 	}
 
 	@GetMapping("/modify")

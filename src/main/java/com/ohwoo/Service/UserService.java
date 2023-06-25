@@ -4,7 +4,7 @@ import com.ohwoo.DTO.UserDTO;
 
 public interface UserService {
 
-	public void register(UserDTO user);
+	public boolean register(UserDTO user);
 
 	public String IdCheck(String username);
 
