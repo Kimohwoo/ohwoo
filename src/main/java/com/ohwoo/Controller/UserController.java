@@ -10,6 +10,7 @@ import com.ohwoo.Service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/user/*")
@@ -27,16 +28,16 @@ public class UserController {
 //		return "/";
 //	}
 
-	@PostMapping("/id")
-	@ResponseBody
+	@PostMapping("/{id}")
 	public String checkId(String username) {
 		log.info("idCheck" + username);
 		return userService.IdCheck(username);
 	}
 
-	@GetMapping("/addUser")
-	public void addUser() {
-
+	@GetMapping("/user-reg")
+	public ModelAndView addUser() {
+		ModelAndView mv = new ModelAndView("customLogin");
+		return mv;
 	}
 
 	@PostMapping("/addUser")
@@ -49,7 +50,7 @@ public class UserController {
 		return null;
 	}
 
-	@GetMapping("/modify")
+	@PutMapping("/user")
 	public void modifyUser() {
 
 	}
