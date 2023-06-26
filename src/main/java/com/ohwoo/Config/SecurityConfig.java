@@ -30,7 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		filter.setEncoding("UTF-8");
 //		filter.setForceEncoding(true);
 //		http.addFilterBefore(filter, CsrfFilter.class);
-		http.csrf().disable().authorizeRequests().antMatchers("/user/addUser").permitAll().antMatchers("/user/*")
+		http.csrf().disable().authorizeRequests().antMatchers("/user/user-reg").permitAll()
+				.antMatchers("/user/login").permitAll()
+				.antMatchers("/user/*")
 				.access("hasAnyRole('USER','ADMIN')").antMatchers("/admin/*").access("hasRole('ADMIN')")
 				.antMatchers("/board/list").permitAll().antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')")
 				.anyRequest().permitAll().and().rememberMe().tokenValiditySeconds(86400).key("myRememberMeKey")

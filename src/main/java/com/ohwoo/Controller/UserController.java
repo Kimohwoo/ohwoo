@@ -20,14 +20,6 @@ public class UserController {
 
 	private final UserService userService;
 
-//	@PostMapping("/login")
-//	public String login(UserDTO user, HttpSession session) {
-//		log.info("로그인 : " + user);
-//		user = userService.login(user);
-//
-//		return "/";
-//	}
-
 	@PostMapping("/{id}")
 	public String checkId(String username) {
 		log.info("idCheck" + username);
@@ -36,11 +28,11 @@ public class UserController {
 
 	@GetMapping("/user-reg")
 	public ModelAndView addUser() {
-		ModelAndView mv = new ModelAndView("customLogin");
+		ModelAndView mv = new ModelAndView("/user/addUser");
 		return mv;
 	}
 
-	@PostMapping("/addUser")
+	@PostMapping("/user-reg")
 	public UserDTO addUser1(UserDTO user, HttpSession session) {
 		log.info("회원가입" + user);
 		if(userService.register(user)){
