@@ -30,7 +30,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
         log.info("JwtAuthenticationFilter: 진입");
-        log.info("저장확인");
 
         ObjectMapper om = new ObjectMapper();
         LoginRequestDTO loginRequestDto = null;
@@ -59,8 +58,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         //getPrincipal();
         //인증 중인 보안 주체의 ID입니다. 사용자 이름과 암호가 포함된 인증 요청의 경우 사용자 이름이 됩니다.
         //호출자는 인증 요청을 위해 주체를 채울 것으로 예상됩니다.
-//        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-//        System.out.println("Authentication 의 principalDetails.getUser().getUsername()의 내용: "+principalDetails.getUser().getUsername());
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        log.info("Authentication 의 CustomUserDetails.getUser().getUsername()의 내용: "+ customUserDetails.getUser().getUsername());
 
         return authentication;
     }
@@ -76,7 +75,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String jwtToken = JWT.create()
                 .withSubject(customUserDetails.getUser().getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis()+JwtProperties.EXPIRATION_TIME))
-//				.withClaim("id", principalDetails.getUser().getUser_id())
                 .withClaim("username", customUserDetails.getUser().getUsername())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
@@ -105,6 +103,5 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         PrintWriter out = response.getWriter();
         out.print(cmRequestDtoJson);
         out.flush();
-
     }
 }

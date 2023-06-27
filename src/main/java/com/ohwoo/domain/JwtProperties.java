@@ -15,10 +15,7 @@ public interface JwtProperties {
 
 	Basic
 	사용자 아이디와 암호를 Base64로 인코딩한 값을 토큰으로 사용한다. (RFC 7617)
-
 	Bearer
 	JWT 혹은 OAuth에 대한 토큰을 사용한다. (RFC 6750)
-
-
 	*/
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ohwoo.DTO.UserDTO;
 import com.ohwoo.mapper.UserMapper;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
+@Log4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Autowired
@@ -33,19 +35,15 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        //   암호화 키
-        //	   String SECRET = "빅데이터5기";
-        // 	토큰 만료시간 단위 :  ms
-        //		int EXPIRATION_TIME = 86400000;
-        //		String TOKEN_PREFIX = "Bearer ";
-        //		String HEADER_STRING = "Authorization";
+
         String header = request.getHeader(JwtProperties.HEADER_STRING);
-        System.out.println(header + "__header부분_____JwtAuthorizationFilter__________");
+        log.info(header + "__header부분_____JwtAuthorizationFilter__________");
+
         if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
             chain.doFilter(request, response);
             return;
         }
-        System.out.println("header: " + header);
+        log.info("header: " + header);
         String token = request.getHeader(JwtProperties.HEADER_STRING).replace(JwtProperties.TOKEN_PREFIX, "");
 
         String username = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)

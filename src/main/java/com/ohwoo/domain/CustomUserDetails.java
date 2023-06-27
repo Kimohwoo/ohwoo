@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-@Log4j
 public class CustomUserDetails implements UserDetails {
 
     private UserDTO user;
@@ -28,7 +27,6 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         // TODO Auto-generated method stub
-        log.info("===================getUsername 호출 =========principalDetail");
         return user.getUsername();
     }
 

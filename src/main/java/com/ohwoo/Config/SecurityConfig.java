@@ -20,6 +20,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import lombok.extern.log4j.Log4j;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -31,19 +34,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		// 한글 깨짐 발생시
-//		CharacterEncodingFilter filter = new CharacterEncodingFilter();
-//		filter.setEncoding("UTF-8");
-//		filter.setForceEncoding(true);
-//		http.addFilterBefore(filter, CsrfFilter.class);
-		http.csrf().disable()
+
+		http.addFilter(corsFilter()).csrf().disable()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // SessionCreationPolicy.STATELESS     - 스프링시큐리티가 생성하지도않고 기존것을 사용하지도 않음        ->JWT 같은토큰방식을 쓸때 사용하는 설정
 				.and()
 				.httpBasic().disable() //사용자 인증방법으로는 HTTP Basic Authentication을 사용 안한다.
 				.addFilter(new JwtAuthenticationFilter(authenticationManager()))  // JwtAutienticationFilter : jwt를 사용해서 인증 처리
 				.addFilter(new JwtAuthorizationFilter(authenticationManager(), userMapper)) // JwtAutiorizationFilter : jwt를 사용해서 인가 처리
 				.authorizeRequests().antMatchers("/user/user-reg").permitAll()
-//				.antMatchers("/user/login").permitAll()
 				.antMatchers("/user/*")
 				.access("hasAnyRole('USER','ADMIN')").antMatchers("/admin/*").access("hasRole('ADMIN')")
 				.antMatchers("/board/list").permitAll().antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')")
@@ -51,8 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.userDetailsService(userDetailsService());
 		http.formLogin().loginPage("/customLogin").loginProcessingUrl("/login").successHandler(loginSuccessHandler())
 						.failureHandler(loginFailureHandler());
-		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true)
-				.deleteCookies("remember-me", "JSESSION_ID");
+		http.logout().logoutUrl("/logout").logoutSuccessUrl("/");
+//				.invalidateHttpSession(true)
+//				.deleteCookies("remember-me", "JSESSION_ID");
 	}
 
 	@Bean
@@ -74,6 +73,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder customPasswordEncoder() {
 		// customPasswordEncoder를 생성하고 반환
 		return new CustomPasswordEncoder();
+	}
+
+	@Bean
+	public CorsFilter corsFilter() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration config = new CorsConfiguration();
+//		● setAllowCredentials : 내 서버가 응답을 할 때 json을 자바스크립트에서 처리할수 있게 할지를 설정
+		config.setAllowCredentials(true);
+		config.addAllowedOrigin("*");
+//		● addAllowedHeader : 허용할 헤더 목록
+		config.addAllowedHeader("*");
+//		● addAllowedMethod : 허용할 메서드(GET, PUT, 등) 목록
+		config.addAllowedMethod("*");
+//		● source.registerCorsConfiguration : 지정한 url에 config 적용
+		source.registerCorsConfiguration("/**", config);
+		return new CorsFilter(source);
 	}
 
 	@Override
