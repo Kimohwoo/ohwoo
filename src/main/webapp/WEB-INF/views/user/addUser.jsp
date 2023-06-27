@@ -11,7 +11,7 @@
 <!-- 		<div> -->
 <%-- 			<jsp:include page="../include/navHeader.jsp" /> --%>
 <!-- 		</div> -->
-		<form id="form" action="/user/addUser" method="post">
+		<form id="form" action="/user/user-reg" method="post">
 			<!-- Name input-->
 			<div class="form-floating mb-3">
 				<input class="form-control" id="username" name="username" type="text" placeholder="아이디를 입력해주세요" data-sb-validations="required" />

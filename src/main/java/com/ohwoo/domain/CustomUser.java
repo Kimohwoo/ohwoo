@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import com.ohwoo.DTO.UserDTO;
 
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Setter
 public class CustomUser extends User {
