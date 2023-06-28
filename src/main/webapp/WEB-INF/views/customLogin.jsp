@@ -18,6 +18,7 @@
 		<input type="button" value="Submit" onclick="submitForm()">
 	</form>
 	<script>
+
             function submitForm() {
                 var formData = {
                     username: $("#username").val(),
@@ -29,8 +30,13 @@
                     url: "/login",
                     data: JSON.stringify(formData),
                     contentType: "application/json",
-                    success: function(response) {
+                    dataType: "json", // JSON 파싱을 자동으로 처리
+                    success: function(response, status, xhr) {
                         // 처리 완료 후의 동작
+                        var jwtToken = xhr.getResponseHeader("Authorization");
+                        document.cookie = "Authorization=" + jwtToken;
+                        alert(jwtToken);
+                        location.replace("/");
                     },
                     error: function(xhr, status, error) {
                         // 에러 처리

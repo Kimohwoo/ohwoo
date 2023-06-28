@@ -30,7 +30,7 @@ public class BoardController {
 
 	private final BoardService boardService;
 
-	@GetMapping("")
+	@GetMapping("/")
 	public String ex(){
 		return "성공";
 	}

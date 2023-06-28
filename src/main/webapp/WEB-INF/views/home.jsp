@@ -8,6 +8,7 @@
     <meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>Home</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 	<body id="page-top">
 <%--     	<jsp:include page="./include/navHeader.jsp" /> --%>
@@ -18,7 +19,7 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="/board/">커뮤니티</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/board/" onclick="requestCommunity()">커뮤니티</a></li>
                         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
@@ -236,5 +237,41 @@
             </div>
         </section>
         <jsp:include page="./include/footer.jsp"></jsp:include>
+        <script>
+            function requestCommunity() {
+              var jwtToken = getCookie("Authorization");
+
+              $.ajax({
+                type: "GET",
+                url: "/board/",
+                headers: {
+                  "Authorization": jwtToken
+                },
+                success: function(response) {
+                  console.log(response);
+                },
+                error: function(xhr, status, error) {
+                  console.log("에러");
+                }
+              });
+            }
+
+            function getCookie(name) {
+              var cookieName = name + "=";
+              var decodedCookie = decodeURIComponent(document.cookie);
+              var cookieArray = decodedCookie.split(";");
+
+              for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) === " ") {
+                  cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(cookieName) === 0) {
+                  return cookie.substring(cookieName.length, cookie.length);
+                }
+              }
+              return null;
+            }
+        </script>
     </body>
 </html>

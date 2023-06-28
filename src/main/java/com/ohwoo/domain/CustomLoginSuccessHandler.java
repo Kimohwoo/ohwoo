@@ -24,7 +24,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		log.warn("login Success");
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 
 		List<String> roleNames = new ArrayList<String>();
 
@@ -34,7 +34,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		log.warn("Role Names : " + roleNames);
 
 		if (roleNames.contains("ROLE_USER")) {
-			session.setAttribute("user", roleNames);
+//			session.setAttribute("user", roleNames);
 			response.sendRedirect("/");
 			return;
 		}

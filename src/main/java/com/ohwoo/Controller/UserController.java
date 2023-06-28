@@ -33,10 +33,9 @@ public class UserController {
 	}
 
 	@PostMapping("/user-reg")
-	public UserDTO addUser1(UserDTO user, HttpSession session) {
+	public UserDTO addUser1(UserDTO user) {
 		log.info("회원가입" + user);
 		if(userService.register(user)){
-			session.setAttribute("sessionId", user.getUsername());
 			return userService.login(user);
 		}
 		return null;
