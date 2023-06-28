@@ -6,10 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ohwoo.DTO.LoginRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -79,16 +82,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX+jwtToken);
-
-		/*
-		 * HMAC 알고리즘을 사용할 경우 서명은 다음과 같이 생성한다.
-    HMACSHA256(
-      base64UrlEncode(header) + "." +
-      base64UrlEncode(payload),
-      your-256-bit-secret
-    )
-		 *
-		 */
+//	    HMAC 알고리즘을 사용할 경우 서명은 다음과 같이 생성한다.
+//        HMACSHA256(
+//          base64UrlEncode(header) + "." +
+//          base64UrlEncode(payload),
+//          your-256-bit-secret
+//        )
 
         log.info("successfulAuthentication jwtToken : 내용 : " + jwtToken);
 
@@ -103,5 +102,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         PrintWriter out = response.getWriter();
         out.print(cmRequestDtoJson);
         out.flush();
+
     }
+
 }

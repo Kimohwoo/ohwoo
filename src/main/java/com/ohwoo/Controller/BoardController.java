@@ -30,6 +30,11 @@ public class BoardController {
 
 	private final BoardService boardService;
 
+	@GetMapping("")
+	public String ex(){
+		return "성공";
+	}
+
 	@GetMapping("list")
 	public ModelAndView getList() {
 		ModelAndView mv = new ModelAndView("/board/list");

@@ -1,6 +1,8 @@
 package com.ohwoo.Controller;
 
 import javax.servlet.http.HttpSession;
+
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.ohwoo.DTO.UserDTO;
