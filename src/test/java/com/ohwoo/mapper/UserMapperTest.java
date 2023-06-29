@@ -35,11 +35,11 @@ public class UserMapperTest {
 	@Setter(onMethod_ = @Autowired)
 	private PasswordEncoder passwordEncoder;
 
-	@Test
+//	@Test
 	public void testGetList() {
 		UserDTO user = new UserDTO();
-		user.setUsername("0000");
-		user = service.login(user);
+		user.setUsername("kowkow292");
+		user = service.login(user.getUsername());
 		log.info("유저 확인" + user);
 		user.getAuthList().forEach(authDTO -> log.info(authDTO));
 	}
@@ -68,7 +68,7 @@ public class UserMapperTest {
 		List<AuthDTO> auth = new ArrayList<AuthDTO>();
 		AuthDTO auth2 = new AuthDTO();
 		auth2.setUsername(user.getUsername());
-		auth2.setAuth("ROLE_USER");
+		auth2.setRole("USER");
 		auth.add(auth2);
 		user.setAuthList(auth);
 

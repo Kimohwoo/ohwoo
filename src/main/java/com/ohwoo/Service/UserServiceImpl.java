@@ -43,12 +43,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO login(UserDTO user) {
+	public UserDTO login(String username) {
 		// TODO Auto-generated method stub
-		log.info("유저 Login" + user);
-		user.setPassword(customEncoder.encode(user.getPassword()));
-		log.info("인코딩 확인하기" + user.getPassword());
-		return userMapper.read(user.getUsername());
+		return userMapper.read(username);
 	}
 
 	@Override

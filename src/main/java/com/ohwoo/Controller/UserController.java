@@ -36,7 +36,7 @@ public class UserController {
 	public UserDTO addUser1(UserDTO user) {
 		log.info("회원가입" + user);
 		if(userService.register(user)){
-			return userService.login(user);
+			return userService.login(user.getUsername());
 		}
 		return null;
 	}

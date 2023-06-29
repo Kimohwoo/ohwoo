@@ -8,7 +8,7 @@ public interface UserService {
 
 	public String IdCheck(String username);
 
-	public UserDTO login(UserDTO user);
+	public UserDTO login(String username);
 
 	public boolean modify(UserDTO user);
 
