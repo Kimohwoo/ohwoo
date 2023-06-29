@@ -10,6 +10,6 @@ import lombok.ToString;
 public class AuthDTO {
 
 	private String username;
-	private String auth;
+	private String role;
 
 }

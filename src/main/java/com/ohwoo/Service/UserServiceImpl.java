@@ -28,12 +28,12 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		user.setPassword(customEncoder.encode(user.getPassword()));
 		log.info("유저 비밀번호 인코딩 확인 : " + user.getPassword());
-		if(userMapper.regist(user) == 1) {
+		if (userMapper.regist(user) == 1) {
 			log.info("유저 만들어지는지 확인" + user);
 			List<AuthDTO> auth = new ArrayList<AuthDTO>();
 			AuthDTO auth2 = new AuthDTO();
 			auth2.setUsername(user.getUsername());
-			auth2.setAuth("ROLE_USER");
+			auth2.setRole(null);
 			auth.add(auth2);
 			user.setAuthList(auth);
 			userMapper.registAuth(auth2);

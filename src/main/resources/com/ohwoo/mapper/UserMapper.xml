@@ -18,15 +18,15 @@
 	</resultMap>
 	<resultMap id="authMap" type="com.ohwoo.DTO.AuthDTO">
 		<result property="username" column="id"/>
-		<result property="auth" column="auth"/>
+		<result property="role" column="role"/>
 	</resultMap>
 	
 	<select id="read" resultMap="userMap">
 	<![CDATA[
-		SELECT u.id, password, name, nickname, phone, address, level, regdate, auth
+		SELECT u.id, password, name, nickname, phone, address, level, regdate, role
 		FROM user u
-		LEFT JOIN user_auth AS auth
-		ON u.id = auth.id
+		LEFT JOIN user_auth AS ROLE
+		ON u.id = ROLE.id
 		WHERE u.id = #{username}
 		
 		]]>

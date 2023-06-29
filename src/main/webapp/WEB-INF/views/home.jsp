@@ -248,6 +248,7 @@
                   "Authorization": jwtToken
                 },
                 success: function(response) {
+                	console.log("성공2")
                   console.log(response);
                 },
                 error: function(xhr, status, error) {
