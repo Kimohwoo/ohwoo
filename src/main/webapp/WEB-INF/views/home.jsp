@@ -240,8 +240,8 @@
         <script>
             function requestCommunity() {
               var jwtToken = getCookie("Authorization");
-
-              $.ajax({
+				console.log(jwtToken);
+              	$.ajax({
                 type: "GET",
                 url: "/board/",
                 headers: {
