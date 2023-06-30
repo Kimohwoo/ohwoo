@@ -10,15 +10,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import com.ohwoo.domain.CustomLoginFailureHandler;
-import com.ohwoo.domain.CustomLoginSuccessHandler;
 import com.ohwoo.domain.CustomPasswordEncoder;
 import com.ohwoo.domain.CustomUserDetailsService;
 import com.ohwoo.domain.JwtAuthenticationFilter;
@@ -43,32 +39,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 																		// 쓸때 사용하는 설정
 				.and().httpBasic().disable() // 사용자 인증방법으로는 HTTP Basic Authentication을 사용 안한다.
 				.addFilterBefore(new JwtAuthenticationFilter(authenticationManager()),
-						UsernamePasswordAuthenticationFilter.class) // JwtAutienticationFilter : jwt를
-				// 사용해서 인증 처리
+						UsernamePasswordAuthenticationFilter.class) // JwtAutienticationFilter : jwt를 사용해서 인증 처리
 				.addFilterBefore(new JwtAuthorizationFilter(authenticationManager(), userMapper),
 						UsernamePasswordAuthenticationFilter.class) // JwtAutiorizationFilter : jwt를 사용해서 인가 처리
-				.authorizeRequests().antMatchers("/user/user-reg", "/board/list").permitAll().antMatchers("/user/*")
+//				.exceptionHandling().accessDeniedHandler(loginFailureHandler()).and
+				.authorizeRequests().antMatchers("/user/user-reg").permitAll().antMatchers("/user/*")
 				.access("hasAnyRole('USER','ADMIN')").antMatchers("/admin/*").access("hasRole('ADMIN')")
-				.antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')");
-		// .and()
-//				.anyRequest().permitAll().and().rememberMe().tokenValiditySeconds(86400).key("myRememberMeKey")
-		// .userDetailsService(userDetailsService());
+//				.antMatchers("/board/*").access("hasAnyAuthority('USER','ADMIN') or hasRole('USER','ADMIN')");
+				.antMatchers("/board/*").access("hasRole('USER')");
 		http.formLogin().loginPage("/customLogin");
 //				.successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler());
-//		http.logout().logoutUrl("/logout").logoutSuccessUrl("/");
-//				.invalidateHttpSession(true)
-//				.deleteCookies("remember-me", "JSESSION_ID");
+		http.logout().logoutUrl("/logout").logoutSuccessUrl("/");
+//		.invalidateHttpSession(true)
+//				.deleteCookies("JSESSIONID");
 	}
 
-	@Bean
-	public AuthenticationSuccessHandler loginSuccessHandler() {
-		return new CustomLoginSuccessHandler();
-	}
-
-	@Bean
-	public AuthenticationFailureHandler loginFailureHandler() {
-		return new CustomLoginFailureHandler();
-	}
+//
+//	@Bean
+//	public AuthenticationSuccessHandler loginSuccessHandler() {
+//		return new CustomLoginSuccessHandler();
+//	}
+//
+//	@Bean
+//	public AuthenticationFailureHandler loginFailureHandler() {
+//		return new CustomLoginFailureHandler();
+//	}
 
 	@Bean
 	public UserDetailsService customUserDetailsService() {

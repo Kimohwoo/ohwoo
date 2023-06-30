@@ -7,11 +7,8 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import lombok.extern.log4j.Log4j;
@@ -24,7 +21,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		log.warn("login Success");
-//		HttpSession session = request.getSession();
 
 		List<String> roleNames = new ArrayList<String>();
 
@@ -34,7 +30,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		log.warn("Role Names : " + roleNames);
 
 		if (roleNames.contains("ROLE_USER")) {
-//			session.setAttribute("user", roleNames);
 			response.sendRedirect("/");
 			return;
 		}

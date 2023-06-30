@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ohwoo.DTO.UserDTO;
@@ -17,6 +18,7 @@ import lombok.extern.log4j.Log4j;
 public class CustomUserDetails implements UserDetails {
 
 	private UserDTO user;
+	private final String ROLE_PREFIX = "ROLE_";
 
 	public CustomUserDetails(UserDTO user) {
 		this.user = user;
@@ -70,10 +72,9 @@ public class CustomUserDetails implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(() -> {
-			return "ROLE_" + user.getAuthList();
-		}); // add에 들어올 파라미터는 GrantedAuthority밖에 없으니
-		log.info(authorities);
+		user.getAuthList().forEach(auth -> authorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + auth.getRole())));
+		log.info("ROLE -> " + authorities);
 		return authorities;
 	}
+
 }

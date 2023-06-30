@@ -30,11 +30,6 @@ public class BoardController {
 
 	private final BoardService boardService;
 
-	@GetMapping("/")
-	public String ex(){
-		return "성공";
-	}
-
 	@GetMapping("list")
 	public ModelAndView getList() {
 		ModelAndView mv = new ModelAndView("/board/list");
@@ -44,27 +39,10 @@ public class BoardController {
 		mv.addObject("list", list);
 		return mv;
 	}
-	
-	@GetMapping("list-fbr")
-	public Map<String, Object> getList(@RequestParam("pageNum") int pageNum, @RequestParam("amount") int amount) {
-		Criteria cri = new Criteria(pageNum, amount);
 
-		List<BoardDTO> list = boardService.getListPaging(cri);
-		Map<String, Object> boardList = new HashMap<String, Object>();
-		boardList.put("item", list);
-		
-		return boardList;
-	}
-
-//	@GetMapping("{criteria}")
-//	public Map<String, Object> RequestList(@RequestParam int pageNum, @RequestParam int amount) {
-//		log.info("list");
-//		Criteria cri;
-//		if ((pageNum != 0) && amount != 0) {
-//			cri = new Criteria(pageNum, amount);
-//		} else {
-//			cri = new Criteria();
-//		}
+//	@GetMapping("list")
+//	public Map<String, Object> getList(@RequestParam("pageNum") int pageNum, @RequestParam("amount") int amount) {
+//		Criteria cri = new Criteria(pageNum, amount);
 //
 //		List<BoardDTO> list = boardService.getListPaging(cri);
 //		Map<String, Object> boardList = new HashMap<String, Object>();
@@ -72,6 +50,23 @@ public class BoardController {
 //
 //		return boardList;
 //	}
+
+	@GetMapping("")
+	public Map<String, Object> getCriteria(@RequestParam("pageNum") int pageNum, @RequestParam("amount") int amount) {
+		log.info("list");
+		Criteria cri;
+		if ((pageNum != 0) && amount != 0) {
+			cri = new Criteria(pageNum, amount);
+		} else {
+			cri = new Criteria();
+		}
+
+		List<BoardDTO> list = boardService.getListPaging(cri);
+		Map<String, Object> boardList = new HashMap<String, Object>();
+		boardList.put("item", list);
+
+		return boardList;
+	}
 
 	@GetMapping("detail")
 	public BoardDTO get(@PathVariable("no") long no) {

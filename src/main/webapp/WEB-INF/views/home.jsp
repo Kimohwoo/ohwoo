@@ -19,7 +19,7 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="/board/" onclick="requestCommunity()">커뮤니티</a></li>
+                        <li class="nav-item"><a class="nav-link" onclick="board">커뮤니티</a></li>
                         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
@@ -238,25 +238,18 @@
         </section>
         <jsp:include page="./include/footer.jsp"></jsp:include>
         <script>
-            function requestCommunity() {
-              var jwtToken = getCookie("Authorization");
-				console.log(jwtToken);
-              	$.ajax({
-                type: "GET",
-                url: "/board/",
-                headers: {
-                  "Authorization": jwtToken
-                },
-                success: function(response) {
-                	console.log("성공2")
-                  console.log(response);
-                },
-                error: function(xhr, status, error) {
-                  console.log("에러");
-                }
-              });
-            }
-
+        	var myToken = getCookie("Authorization");
+        	console.log(myToken);
+        	function board(){
+            	var link = "/board/list";
+            	var xhr = new XMLHttpRequest();
+            	xhr.withCredentials = true;
+        		xhr.open('GET', link, true);
+        		xhr.setRequestHeader('Authorization', myToken)
+       		  	xhr.send();
+        		location.href(link);
+        	}
+        	
             function getCookie(name) {
               var cookieName = name + "=";
               var decodedCookie = decodeURIComponent(document.cookie);
