@@ -45,13 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				.exceptionHandling().accessDeniedHandler(loginFailureHandler()).and
 				.authorizeRequests().antMatchers("/user/user-reg").permitAll().antMatchers("/user/*")
 				.access("hasAnyRole('USER','ADMIN')").antMatchers("/admin/*").access("hasRole('ADMIN')")
-//				.antMatchers("/board/*").access("hasAnyAuthority('USER','ADMIN') or hasRole('USER','ADMIN')");
-				.antMatchers("/board/*").access("hasRole('USER')");
+//				.antMatchers("/board/*").access("hasAnyAuthority('USER','ADMIN') or hasAnyRole('USER','ADMIN')");
+				.antMatchers("/board/*").access("hasAnyRole('USER','ADMIN')");
 		http.formLogin().loginPage("/customLogin");
 //				.successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler());
 		http.logout().logoutUrl("/logout").logoutSuccessUrl("/");
-//		.invalidateHttpSession(true)
-//				.deleteCookies("JSESSIONID");
 	}
 
 //
