@@ -1,5 +1,3 @@
 com\ohwoo\mapper\BoardMapperTest.class
 com\ohwoo\mapper\PasswordEncoderTest$1.class
-com\ohwoo\service\UserServiceTest.class
 com\ohwoo\mapper\PasswordEncoderTest.class
-com\ohwoo\mapper\UserMapperTest.class

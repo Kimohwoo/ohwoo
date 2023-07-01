@@ -11,7 +11,6 @@ com\ohwoo\Config\SecurityInitializer.class
 com\ohwoo\Config\WebConfig.class
 com\ohwoo\mapper\BoardMapper.class
 com\ohwoo\DTO\FileDTO.class
-com\ohwoo\domain\CustomUser.class
 com\ohwoo\DTO\LikesDTO.class
 com\ohwoo\Service\BoardServiceImpl.class
 com\ohwoo\domain\CustomLoginFailureHandler.class
