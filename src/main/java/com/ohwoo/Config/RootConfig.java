@@ -25,7 +25,7 @@ public class RootConfig {
 		hikariConfig.setJdbcUrl(
 				"jdbc:mysql://ohwoodb.c982z4jtocnq.ap-northeast-2.rds.amazonaws.com:3306/ohwoodb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8");
 		hikariConfig.setUsername("kowkow292");
-		hikariConfig.setPassword("");
+		hikariConfig.setPassword("1993dhdn");
 		HikariDataSource dataSource = new HikariDataSource(hikariConfig);
 		return dataSource;
 	}
