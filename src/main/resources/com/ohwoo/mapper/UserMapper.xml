@@ -52,10 +52,10 @@
 	</insert>
 	
 	<insert id="registAuth">
-		INSERT INTO user_auth(id, auth)
+		INSERT INTO user_auth(id, role)
 		VALUES(
 			#{username},
-			#{auth}
+			#{role}
 		)
 	</insert>
 	
