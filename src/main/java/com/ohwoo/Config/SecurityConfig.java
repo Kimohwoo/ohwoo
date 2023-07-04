@@ -42,7 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						UsernamePasswordAuthenticationFilter.class) // JwtAutienticationFilter : jwt를 사용해서 인증 처리
 				.addFilterBefore(new JwtAuthorizationFilter(authenticationManager(), userMapper),
 						UsernamePasswordAuthenticationFilter.class) // JwtAutiorizationFilter : jwt를 사용해서 인가 처리
-//				.exceptionHandling().accessDeniedHandler(loginFailureHandler()).and
 				.authorizeRequests().antMatchers("/user/user-reg").permitAll().antMatchers("/user/*")
 				.access("hasAnyRole('USER','ADMIN')").antMatchers("/admin/*").access("hasRole('ADMIN')")
 //				.antMatchers("/board/*").access("hasAnyAuthority('USER','ADMIN') or hasAnyRole('USER','ADMIN')");

@@ -1,6 +1,7 @@
 package com.ohwoo.domain;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.FilterChain;
@@ -90,19 +91,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //          your-256-bit-secret
 //        )
 
-//		log.info("successfulAuthentication jwtToken : 내용 : " + jwtToken);
-//
-//		ObjectMapper om = new ObjectMapper();
-//
-//		LoginRequestDTO cmRequestDto = new LoginRequestDTO();
-//		cmRequestDto.setUsername(customUserDetails.getUser().getUsername());
-//		cmRequestDto.setPassword(customUserDetails.getUser().getPassword());
-//
-//		String cmRequestDtoJson = om.writeValueAsString(cmRequestDto);
-//		log.info("om.writeValueAsString(cmRequestDto); 내용 : " + cmRequestDtoJson);
-//		PrintWriter out = response.getWriter();
-//		out.print(cmRequestDtoJson);
-//		out.flush();
+		log.info("successfulAuthentication jwtToken : 내용 : " + jwtToken);
+
+		ObjectMapper om = new ObjectMapper();
+
+		LoginRequestDTO cmRequestDto = new LoginRequestDTO();
+		cmRequestDto.setUsername(customUserDetails.getUser().getUsername());
+		cmRequestDto.setPassword(customUserDetails.getUser().getPassword());
+
+		String cmRequestDtoJson = om.writeValueAsString(cmRequestDto);
+		log.info("om.writeValueAsString(cmRequestDto); 내용 : " + cmRequestDtoJson);
+		PrintWriter out = response.getWriter();
+		out.print(cmRequestDtoJson);
+		out.flush();
 
 	}
 

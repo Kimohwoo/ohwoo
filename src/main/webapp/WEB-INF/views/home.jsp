@@ -247,7 +247,7 @@
         		xhr.open('GET', link, true);
         		xhr.setRequestHeader('Authorization', myToken)
        		  	xhr.send();
-        		location.href(link);
+        		
         	}
         	
             function getCookie(name) {

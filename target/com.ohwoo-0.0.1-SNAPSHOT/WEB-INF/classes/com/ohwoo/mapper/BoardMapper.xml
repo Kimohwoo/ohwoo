@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+
+<mapper namespace="com.ohwoo.mapper.BoardMapper">
+
+	<select id="read" resultType="com.ohwoo.DTO.BoardDTO">
+	<![CDATA[
+		SELECT no, title, author, content, regdate, updateday
+		FROM board
+		WHERE no = #{no}
+		]]>
+	</select>
+	
+	<select id="getListPaging" resultType="com.ohwoo.DTO.BoardDTO">
+	<![CDATA[
+		SELECT no, title, author, content, regdate, updateday
+		FROM board
+		LIMIT #{amount} OFFSET #{skip}
+		
+		]]>
+	</select>
+	
+	<insert id="regist">
+		INSERT INTO board(title, author, content, regdate)
+		VALUES(
+			#{title},
+			#{author},
+			#{content},
+			sysdate()
+		)
+	</insert>
+	
+
+</mapper>

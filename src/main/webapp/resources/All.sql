@@ -4,9 +4,11 @@ DROP TABLE user;
 DROP TABLE user_auth;
 DROP TABLE ban;
 DROP TABLE board;
-DROP TABLE file;
+DROP TABLE files;
 DROP TABLE likes;
 DROP TABLE images;
+
+SELECT * FROM user;
 
 CREATE TABLE user(
    id VARCHAR(50) PRIMARY KEY,
@@ -30,7 +32,7 @@ CREATE TABLE ban(
 
 CREATE TABLE user_auth(
 	id VARCHAR(50),
-    auth VARCHAR(50),
+    role VARCHAR(50),
     CONSTRAINT authfk_id_user_id FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
