@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="./include/head.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	CustomLogin 페이지 입니다.
@@ -18,7 +17,6 @@
 		<input type="button" value="Submit" onclick="submitForm()">
 	</form>
 	<script>
-
             function submitForm() {
                 var formData = {
                     username: $("#username").val(),

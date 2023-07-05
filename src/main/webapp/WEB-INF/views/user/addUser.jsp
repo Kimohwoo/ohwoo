@@ -10,7 +10,7 @@
 	</head>
 	<body id="page-top">
 <!-- 		<div> -->
-<%-- 			<jsp:include page="../include/navHeader.jsp" /> --%>
+ 			<jsp:include page="../include/navHeader.jsp" />
 <!-- 		</div> -->
 		<form id="form" action="/user/user-reg" method="post">
 			<!-- Name input-->

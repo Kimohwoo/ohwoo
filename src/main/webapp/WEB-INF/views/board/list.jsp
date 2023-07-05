@@ -1,7 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/head.jsp" %>
+<%
+    String jwtToken = null;
+	boolean isLoggedIn = false;
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("Authorization") && cookie.getValue().startsWith("Bearer ")) {
+                jwtToken = cookie.getValue().substring(7);
+                isLoggedIn = true;
+                break;
+            }
+        }
+    } 
+    if(!isLoggedIn) {
+    	response.sendRedirect("/customLogin");
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
