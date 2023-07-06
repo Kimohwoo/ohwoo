@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 			log.info("유저 만들어지는지 확인" + user);
 			AuthDTO auth = new AuthDTO();
 			auth.setUsername(user.getUsername());
-			auth.setRole("USER");
+			auth.setRole("ROLE_USER");
 			userMapper.registAuth(auth);
 			return true;
 		}

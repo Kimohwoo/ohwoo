@@ -11,13 +11,13 @@
 	CustomLogin 페이지 입니다.
 	<h2><c:out value="${error}"/></h2>
 	<h2><c:out value="${logout}"/></h2>
-	<form>
+	<form action="/user/login" method="post">
 		<input type="text" name="username" id="username">
 		<input type="password" name="password" id="password">
-		<input type="button" value="Submit" onclick="submitForm()">
+		<input type="submit" value="Submit">
 	</form>
 	<script>
-            function submitForm() {
+           /*  function submitForm() {
                 var formData = {
                     username: $("#username").val(),
                     password: $("#password").val()
@@ -41,7 +41,7 @@
                         console.log("에러")
                     }
                 });
-            }
+            } */
         </script>
 </body>
 </html>

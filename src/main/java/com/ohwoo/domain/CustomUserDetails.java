@@ -10,23 +10,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ohwoo.DTO.UserDTO;
 
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
 	private UserDTO user;
-	private final String ROLE_PREFIX = "ROLE_";
-
-	public CustomUserDetails(UserDTO user) {
-		this.user = user;
-	}
-
-	public UserDTO getUser() {
-		return user;
-	}
 
 	@Override
 	public String getPassword() {
@@ -72,7 +65,7 @@ public class CustomUserDetails implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		user.getAuthList().forEach(auth -> authorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + auth.getRole())));
+		user.getAuthList().forEach(auth -> authorities.add(new SimpleGrantedAuthority(auth.getRole())));
 		log.info("ROLE -> " + authorities);
 		return authorities;
 	}

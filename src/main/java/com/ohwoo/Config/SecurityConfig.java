@@ -1,8 +1,9 @@
 package com.ohwoo.Config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -10,43 +11,55 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.ohwoo.Service.UserService;
 import com.ohwoo.domain.CustomPasswordEncoder;
 import com.ohwoo.domain.CustomUserDetailsService;
 import com.ohwoo.domain.JwtAuthenticationFilter;
-import com.ohwoo.domain.JwtAuthorizationFilter;
-import com.ohwoo.mapper.UserMapper;
+import com.ohwoo.domain.JwtTokenProvider;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
 @Log4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	UserMapper userMapper;
+	private UserDetailsService userDetailsService;
+	private UserService userService;
+//	private final JwtTokenProvider jwtTokenProvider;
+	
+	@Bean
+	@Override
+	protected AuthenticationManager authenticationManager() throws Exception {
+		// TODO Auto-generated method stub
+		return super.authenticationManager();
+	}
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 
-		http.addFilter(corsFilter()).csrf().disable().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 스프링시큐리티가 생성하지도않고 기존것을 사용하지도 않음->JWT 같은토큰방식을
-																		// 쓸때 사용하는 설정
-				.and().httpBasic().disable() // 사용자 인증방법으로는 HTTP Basic Authentication을 사용 안한다.
-				.addFilter(new JwtAuthenticationFilter(authenticationManager())) // JwtAutienticationFilter : jwt를 사용해서
-				.addFilter(new JwtAuthorizationFilter(authenticationManager(), userMapper)); // JwtAutiorizationFilter
-//				.authorizeRequests().antMatchers("/board/*").hasAuthority("hasRole(USER)");
-		http.formLogin().loginPage("/customLogin");
-		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("Authorization");
+		http.csrf().disable();
+		http.httpBasic().disable() // 사용자 인증방법으로는 HTTP Basic Authentication을 사용 안한다.
+				.authorizeRequests().antMatchers("/board/*").hasRole("USER")
+				.antMatchers("/test").authenticated().and()
+		.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider()), UsernamePasswordAuthenticationFilter.class); // JwtAutienticationFilter : jwt를 사용해서
+//		http.formLogin().loginPage("/customLogin");
+//		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("Authorization");
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
 	@Bean
+	public JwtTokenProvider jwtTokenProvider() {
+		return new JwtTokenProvider(userDetailsService);
+	}
+	
+	@Bean
 	public UserDetailsService customUserDetailsService() {
-		return new CustomUserDetailsService();
+		return new CustomUserDetailsService(userService);
 	}
 
 	@Bean
@@ -55,21 +68,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new CustomPasswordEncoder();
 	}
 
-	@Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-//		● setAllowCredentials : 내 서버가 응답을 할 때 json을 자바스크립트에서 처리할수 있게 할지를 설정
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin("*");
-//		● addAllowedHeader : 허용할 헤더 목록
-		config.addAllowedHeader("*");
-//		● addAllowedMethod : 허용할 메서드(GET, PUT, 등) 목록
-		config.addAllowedMethod("*");
-//		● source.registerCorsConfiguration : 지정한 url에 config 적용
-		source.registerCorsConfiguration("/**", config);
-		return new CorsFilter(source);
-	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

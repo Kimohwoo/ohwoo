@@ -21,7 +21,7 @@ import org.springframework.web.servlet.view.JstlView;
 import lombok.extern.log4j.Log4j;
 
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.ohwoo.Controller", "com.ohwoo.exception" })
+@ComponentScan(basePackages = { "com.ohwoo.Controller", "com.ohwoo.exception"})
 //@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Log4j
 public class ServletConfig implements WebMvcConfigurer {
