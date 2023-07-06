@@ -1,33 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ include file="../include/head.jsp" %>
-<%
-    String jwtToken = null;
-	boolean isLoggedIn = false;
-    Cookie[] cookies = request.getCookies();
-    if (cookies != null) {
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("Authorization") && cookie.getValue().startsWith("Bearer ")) {
-                jwtToken = cookie.getValue().substring(7);
-                isLoggedIn = true;
-                break;
-            }
-        }
-    } 
-    if(!isLoggedIn) {
-    	response.sendRedirect("/customLogin");
-    }
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시판</title>
 </head>
 <body style="background-color: black;">
 	<jsp:include page="../include/navHeader.jsp"/>
 	<div class="container">
 		<h3 style="text-align: center; padding-top: 50px; color: white;">게시판</h3>
+		<button class="btn btn-primary" id="newBoard">글 작성</button>
 		<table class="table table-border table-striped table-dark table-hover">
 			<thead>
 				<tr>
@@ -42,7 +25,7 @@
 					<tr>
 						<td><a><c:out value="${board.no}" /></a></td>
 						
-						<td><c:out value="${board.title}" /><c:out value="${board.content}" /></td>
+						<td><a href="/board/article?no=<c:out value="${board.no}"/>"><c:out value="${board.title}" /><c:out value="${board.content}" /></a></td>
 							
 						<td><c:out value='${board.author}'/></td>
 						
@@ -52,5 +35,15 @@
 			</tbody>
 		</table>
 	</div>
+	<script>
+		$().ready(function(){
+			
+			function newBoard(){
+				window.location.href = "/board/new";
+			}
+			
+			$("#newBoard").on("click", newBoard);
+		})
+	</script>
 </body>
 </html>

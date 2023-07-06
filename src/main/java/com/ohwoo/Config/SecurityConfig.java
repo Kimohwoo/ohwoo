@@ -34,10 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 
 		http.addFilter(corsFilter()).csrf().disable().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 스프링시큐리티가 생성하지도않고 기존것을 사용하지도 않음->JWT 같은토큰방식을 쓸때 사용하는 설정
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 스프링시큐리티가 생성하지도않고 기존것을 사용하지도 않음->JWT 같은토큰방식을
+																		// 쓸때 사용하는 설정
 				.and().httpBasic().disable() // 사용자 인증방법으로는 HTTP Basic Authentication을 사용 안한다.
 				.addFilter(new JwtAuthenticationFilter(authenticationManager())) // JwtAutienticationFilter : jwt를 사용해서
 				.addFilter(new JwtAuthorizationFilter(authenticationManager(), userMapper)); // JwtAutiorizationFilter
+//				.authorizeRequests().antMatchers("/board/*").hasAuthority("hasRole(USER)");
 		http.formLogin().loginPage("/customLogin");
 		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("Authorization");
 	}

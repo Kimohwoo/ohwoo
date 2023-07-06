@@ -8,7 +8,7 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 	</head>
-	<body id="page-top">
+	<body style="background-color: black;">
 <!-- 		<div> -->
  			<jsp:include page="../include/navHeader.jsp" />
 <!-- 		</div> -->
@@ -38,12 +38,6 @@
 			    <label for="phone">Phone number</label>
 			    <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
 			</div>
-			<!-- Message input-->
-<!-- 			<div class="form-floating mb-3"> -->
-<!-- 			    <textarea class="form-control" id="message" type="text" placeholder="Enter your message here..." style="height: 10rem" data-sb-validations="required"></textarea> -->
-<!-- 			    <label for="message">Message</label> -->
-<!-- 			    <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div> -->
-<!-- 			</div> -->
 			<!-- Submit success message-->
 			<!---->
 			<!-- This is what your users will see when the form-->
