@@ -1,7 +1,6 @@
 package com.ohwoo.Config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,8 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private UserDetailsService userDetailsService;
 	private UserService userService;
-//	private final JwtTokenProvider jwtTokenProvider;
-	
+
 	@Bean
 	@Override
 	protected AuthenticationManager authenticationManager() throws Exception {
@@ -44,9 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.csrf().disable();
 		http.httpBasic().disable() // 사용자 인증방법으로는 HTTP Basic Authentication을 사용 안한다.
-				.authorizeRequests().antMatchers("/board/*").hasRole("USER")
-				.antMatchers("/test").authenticated().and()
-		.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider()), UsernamePasswordAuthenticationFilter.class); // JwtAutienticationFilter : jwt를 사용해서
+				.authorizeRequests().antMatchers("/board/*").hasRole("USER").antMatchers("/test").authenticated().and()
+				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider()),
+						UsernamePasswordAuthenticationFilter.class); // JwtAutienticationFilter : jwt를 사용해서
 //		http.formLogin().loginPage("/customLogin");
 //		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("Authorization");
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -56,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public JwtTokenProvider jwtTokenProvider() {
 		return new JwtTokenProvider(userDetailsService);
 	}
-	
+
 	@Bean
 	public UserDetailsService customUserDetailsService() {
 		return new CustomUserDetailsService(userService);
@@ -67,7 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// customPasswordEncoder를 생성하고 반환
 		return new CustomPasswordEncoder();
 	}
-
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
