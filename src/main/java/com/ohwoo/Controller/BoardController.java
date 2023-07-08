@@ -67,6 +67,7 @@ public class BoardController {
 
 	@PostMapping("article")
 	public BoardDTO register(@RequestBody BoardDTO board) {
+		log.info("게시글 작성 : " + board);
 		boardService.regist(board);
 		return board;
 	}

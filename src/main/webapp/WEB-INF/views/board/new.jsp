@@ -11,18 +11,13 @@
 	<jsp:include page="../include/navHeader.jsp"/>
 	<form>
 		<div class="form-group">
-			<label>번호</label>
-			<input class="form-control" name='no' type="text" />
-		</div>
-		
-		<div class="form-group">
 			<label>제목</label>
 			<input class="form-control" name='title' type="text" />
 		</div>
 		
 		<div class="form-group">
 			<label>닉네임</label>
-			<input class="form-control" name='userId' value="${article.author}" readonly="readonly">
+			<input class="form-control" name='nickName' value="${article.author}" readonly="readonly">
 		</div>
 		
 		<div class="form-group">
@@ -30,7 +25,7 @@
 			<textarea class="form-control" rows="5" name='content'></textarea>
 		</div>
 		<button class="btn btn-primary" type="submit" >작성</button>
-		<buttom class="btn btn-secondary" type="button" id="back">취소</buttom>
+		<button class="btn btn-secondary" type="button" id="back">돌아가기</button>
 	</form>
 	<script>
 		$(document).ready(function() {
@@ -41,7 +36,37 @@
 
 	    // 버튼 클릭 이벤트 핸들러 등록
 		    $("#back").on("click", goBack);
+	    
 		  });
+		
+		 $("form").on("submit", function(event) {
+ 			    event.preventDefault(); // 기본 제출 동작 방지 
+
+			    var formData = {
+			      title: $("input[name='title']").val(),
+			      nickName: $("input[name='nickName']").val(),
+			      content: $("textarea[name='content']").val()
+			    };
+				
+			    $.ajax({
+			      type: "POST",
+			      url: "/board/article",
+			      data: JSON.stringify(formData),
+			      contentType: "application/json",
+			      dataType: "json",
+			      headers: {
+			        "Authorization": getCookie("Authorization")
+			      },
+			      success: function(response) {
+			        alert("글 작성이 완료되었습니다.");
+			        // 성공적으로 처리된 후 동작
+			        location.href = '/board/list';
+			      },
+			      error: function(xhr, status, error) {
+			        console.log("에러");
+			      }
+			    });
+		 });
 	</script>
 </body>
 </html>

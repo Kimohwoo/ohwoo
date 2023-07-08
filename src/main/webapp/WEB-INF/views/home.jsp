@@ -178,41 +178,5 @@
             </div>
         </section>
         <jsp:include page="./include/footer.jsp"></jsp:include>
-        <script>
-         	var myToken = getCookie("Authorization");
-        	console.log(myToken);
-        	function board(){
-            	var link = "/board/list";
-            	var xhr = new XMLHttpRequest();
-            	xhr.withCredentials = true;
-        		xhr.open('GET', link, true);
-        		xhr.setRequestHeader('Authorization', myToken)
-        		xhr.onreadystatechange = function() {
-        	        if (xhr.readyState === 4 && xhr.status === 200) {
-        	            location.href = link;
-        	        }
-        	    };
-        	    xhr.send();
-        	}  
-        	
-        	
-        	
-            function getCookie(name) {
-              var cookieName = name + "=";
-              var decodedCookie = decodeURIComponent(document.cookie);
-              var cookieArray = decodedCookie.split(";");
-
-              for (var i = 0; i < cookieArray.length; i++) {
-                var cookie = cookieArray[i];
-                while (cookie.charAt(0) === " ") {
-                  cookie = cookie.substring(1);
-                }
-                if (cookie.indexOf(cookieName) === 0) {
-                  return cookie.substring(cookieName.length, cookie.length);
-                }
-              }
-              return null;
-            }
-        </script>
     </body>
 </html>

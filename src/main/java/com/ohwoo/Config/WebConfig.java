@@ -6,6 +6,7 @@ import javax.servlet.ServletRegistration;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -39,8 +40,6 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 		return new Filter[] { filter, hidenFilter };
 	}
 	
-	
-
 	@Override
 	protected void customizeRegistration(ServletRegistration.Dynamic registration) {
 		// TODO Auto-generated method stub
@@ -49,4 +48,9 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 		registration.setMultipartConfig(multipart);
 	}
 
+	 public void addCorsMappings(CorsRegistry registry) {
+	        registry.addMapping("/**")
+	                .allowedOrigins("*");
+	 }
+	
 }

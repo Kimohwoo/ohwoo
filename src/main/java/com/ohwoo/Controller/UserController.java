@@ -1,5 +1,9 @@
 package com.ohwoo.Controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +28,7 @@ public class UserController {
 
 	private final UserService userService;
 	private final JwtTokenProvider jwtTokenProvider;
+	private final PasswordEncoder passwordEncoder;
 
 	@PostMapping("/{id}")
 	public String checkId(String username) {
@@ -38,14 +43,21 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public String login(@RequestBody UserDTO user) {
+	public ResponseEntity<String> login(@RequestBody UserDTO user) {
 		log.info("user email = " + user.getUsername());
 		UserDTO cuser = userService.login(user.getUsername());
-		return jwtTokenProvider.createToken(cuser.getUsername(), cuser.getAuthList());
+		if(user.getPassword() != null && passwordEncoder.matches(user.getPassword(), cuser.getPassword())) {
+			HttpHeaders headers = new HttpHeaders();
+	        headers.add("Authorization", jwtTokenProvider.createToken(cuser.getUsername(), cuser.getAuthList()));
+
+	        return ResponseEntity.status(HttpStatus.OK).headers(headers).body("Login successful");
+		}
+		log.info("Login failed");
+	    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("failed");
 	}
 
 	@PostMapping("/user-reg")
-	public UserDTO addUser1(UserDTO user) {
+	public UserDTO addUser1(@RequestBody UserDTO user) {
 		log.info("회원가입" + user);
 		if(userService.register(user)){
 			return userService.login(user.getUsername());
