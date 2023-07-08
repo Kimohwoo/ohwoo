@@ -29,32 +29,28 @@ public class BoardController {
 
 	private final BoardService boardService;
 
-	@GetMapping("list")
-	public ModelAndView getList() {
+	@GetMapping(value = "list", produces = "application/json")
+	public ModelAndView getList(@RequestParam("pageNum") int pageNum, @RequestParam("amount") int amount) {
 		log.info("board/list 오는지 확인");
 		ModelAndView mv = new ModelAndView("/board/list");
-		Criteria cri = new Criteria();
-
+		Criteria cri;
+		if(pageNum != 0 && amount != 0) {
+			cri = new Criteria(pageNum, amount);
+		} else {
+			cri = new Criteria();
+		}
+		
 		List<BoardDTO> list = boardService.getListPaging(cri);
+		
 		mv.addObject("list", list);
+		log.info(list);
+		mv.addObject("pages", cri);
 		return mv;
 	}
 
 	@GetMapping("new")
 	public ModelAndView newboard() {
 		return new ModelAndView("/board/new");
-	}
-
-	@GetMapping("list-page")
-	public Map<String, Object> getCriteria(@RequestParam("pageNum") int pageNum, @RequestParam("amount") int amount) {
-		log.info("list");
-		Criteria cri = new Criteria(pageNum, amount);
-
-		List<BoardDTO> list = boardService.getListPaging(cri);
-		Map<String, Object> boardList = new HashMap<String, Object>();
-		boardList.put("item", list);
-
-		return boardList;
 	}
 
 	@GetMapping("article")

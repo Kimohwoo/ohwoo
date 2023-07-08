@@ -39,7 +39,7 @@
 	    
 		  });
 		
-		 $("form").on("submit", function(event) {
+		$("form").on("submit", function(event) {
  			    event.preventDefault(); // 기본 제출 동작 방지 
 
 			    var formData = {
@@ -66,7 +66,7 @@
 			        console.log("에러");
 			      }
 			    });
-		 });
+		 }); 
 	</script>
 </body>
 </html>

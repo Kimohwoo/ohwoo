@@ -19,21 +19,5 @@
 	<link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet" />
 	<!-- jquery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-	function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(";");
-
-        for (var i = 0; i < cookieArray.length; i++) {
-          var cookie = cookieArray[i];
-          while (cookie.charAt(0) === " ") {
-            cookie = cookie.substring(1);
-          }
-          if (cookie.indexOf(cookieName) === 0) {
-            return cookie.substring(cookieName.length, cookie.length);
-          }
-        }
-        return null;
-      }
-	</script>
+	<!-- 쿠키 관련 -->
+	<script src="<c:url value="/resources/js/cookie.js" />"></script>

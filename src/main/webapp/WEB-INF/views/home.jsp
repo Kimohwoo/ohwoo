@@ -17,7 +17,7 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="/board/list">커뮤니티</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/board/list?pageNum=1&amount=5">커뮤니티</a></li>
                         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
@@ -35,8 +35,8 @@
                     </div>
                     <div class="col-lg-8 align-self-baseline">
                         <p class="text-white-75 mb-5">팀 프로젝트에서 하지 못했던 그리고 하고싶었던 여러 기능들을 만들고 싶다는 목표로 시작하게된 가벼운 프로젝트입니다!! </p>
-                        <a class="btn btn-primary btn-xl" href="#about">Find Out More</a>
                         <a class="btn btn-primary btn-xl" href="/user/user-reg">회원가입</a>
+                        <a class="btn btn-primary btn-xl" href="/customLogin">로그인</a>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@
             <div class="container-fluid p-0">
                 <div class="row g-0">
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/1.jpg" title="Project Name">
+                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/1.jpg" title="스프링 프로젝트">
                             <img class="img-fluid" src="/resources/assets/img/portfolio/thumbnails/1.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">팀 프로젝트</div>
@@ -105,7 +105,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/2.jpg" title="Project Name">
+                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/2.jpg" title="안드로이드 프로젝트">
                             <img class="img-fluid" src="/resources/assets/img/portfolio/thumbnails/2.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">팀 프로젝트</div>
@@ -114,7 +114,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/3.jpg" title="Project Name">
+                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/3.jpg" title="토이 프로젝트">
                             <img class="img-fluid" src="/resources/assets/img/portfolio/thumbnails/3.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">개인 프로젝트</div>
@@ -123,7 +123,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/4.jpg" title="Project Name">
+                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/4.jpg" title="Next Step">
                             <img class="img-fluid" src="/resources/assets/img/portfolio/thumbnails/4.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">다음 프로젝트</div>
@@ -132,7 +132,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/5.jpg" title="Project Name">
+                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/5.jpg" title="Next Step">
                             <img class="img-fluid" src="/resources/assets/img/portfolio/thumbnails/5.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">다음 프로젝트</div>
@@ -141,7 +141,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/6.jpg" title="Project Name">
+                        <a class="portfolio-box" href="/resources/assets/img/portfolio/fullsize/6.jpg" title="Next Step">
                             <img class="img-fluid" src="/resources/assets/img/portfolio/thumbnails/6.jpg" alt="..." />
                             <div class="portfolio-box-caption p-3">
                                 <div class="project-category text-white-50">다음 프로젝트</div>

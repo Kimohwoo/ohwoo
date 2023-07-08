@@ -97,8 +97,6 @@
   	</div>
 	<script type="text/javascript">
 	$(function() {
-		
-		var likecheck = ${likecheck};
 		 
 
 		if (document.forms["operForm"]) {

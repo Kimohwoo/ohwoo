@@ -22,7 +22,6 @@ import lombok.extern.log4j.Log4j;
 
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.ohwoo.Controller", "com.ohwoo.exception"})
-//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Log4j
 public class ServletConfig implements WebMvcConfigurer {
 
@@ -30,7 +29,6 @@ public class ServletConfig implements WebMvcConfigurer {
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 		// TODO Auto-generated method stub
 		reorderXmlConvertersToEnd(converters);
-//		converters.forEach(System.out::println);
 		converters.forEach(converter -> log.info(converter));
 	}
 	

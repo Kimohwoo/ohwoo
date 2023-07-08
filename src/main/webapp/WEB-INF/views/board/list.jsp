@@ -34,16 +34,29 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<ul class="pagination justify-content-end">
+		    <li class="page-item">
+		        <a href="javascript:page(<c:out value='${(pages.pageNum-1 == 0) ? 1 : pages.pageNum-1}' />, 5)" aria-label="Previous" class="page-link">
+		            <span aria-hidden="true">이전</span>
+		        </a>
+		    </li>
+		
+		    <li class="page-item">
+		        <a href="javascript:page(<c:out value='${pages.pageNum+1}' />, 5)" aria-label="Next" class="page-link" id="next">
+		            <span aria-hidden="true">다음</span>
+		        </a>
+		    </li>
+		</ul>
 	</div>
 	<script>
-		$().ready(function(){
-			
-			function newBoard(){
-				window.location.href = "/board/new";
-			}
-			
-			$("#newBoard").on("click", newBoard);
-		})
+		var list = '${list}';
+		function page(pageNum, amount){
+	       location.href="/board/list?pageNum=" + pageNum +
+			"&amount=" + amount
+		}
+		if (list.length == 2) {
+	        document.getElementById('next').style.display = 'none';
+	    }
 	</script>
 </body>
 </html>
