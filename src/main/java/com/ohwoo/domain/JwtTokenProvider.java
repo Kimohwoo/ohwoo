@@ -54,6 +54,9 @@ public class JwtTokenProvider {
 				.signWith(SignatureAlgorithm.HS256, SECRETKEY) // 사용할 암호화 알고리즘과 signature에 들어갈 시크릿 키 세팅
 				.compact();
 	}
+	
+	// 토큰 삭제
+	
 
 	// Jwt 토큰에서 인증 정보 조회
 	public Authentication getAuthentication(String token) {

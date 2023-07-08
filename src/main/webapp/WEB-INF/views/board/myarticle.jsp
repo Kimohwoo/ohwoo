@@ -23,7 +23,7 @@
 							
 							<div class="form-group">
 								<label>Post_id</label>
-								<input class="form-control" name='post_id' value='<c:out value="${article.no }"/>' readonly="readonly">
+								<input class="form-control" name='post_id' value='<c:out value="${article.no}"/>' readonly="readonly">
 							</div>
 							
 							<div class="form-group">
@@ -39,7 +39,7 @@
 							
 							<div class="form-group">
 								<label>Text area</label>
-								<textarea class="form-control" rows="5" name='content' readonly="readonly"><c:out value="${board.content}" /></textarea>
+								<textarea class="form-control" rows="5" name='content' readonly="readonly"><c:out value="${article.content}" /></textarea>
 							</div>
 							
 							<form id='operForm' action="/board/modify" method="get"><!-- get방식, 수정창 띄우는거니까 -->

@@ -97,8 +97,6 @@
   	</div>
 	<script type="text/javascript">
 	$(function() {
-		 
-
 		if (document.forms["operForm"]) {
 		    let formObj = $("#operForm");
 		    
@@ -118,8 +116,9 @@
 		      }
 		      formObj.submit();
 		    });
-		  }
+		}
 	});
+	
 	</script>
 </body>
 </html>

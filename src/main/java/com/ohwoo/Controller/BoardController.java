@@ -1,8 +1,9 @@
 package com.ohwoo.Controller;
 
-import java.util.HashMap;
+import java.security.Principal;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ohwoo.DTO.BoardDTO;
 import com.ohwoo.DTO.Criteria;
+import com.ohwoo.DTO.UserDTO;
 import com.ohwoo.Service.BoardService;
+import com.ohwoo.Service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -28,6 +31,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 
 	private final BoardService boardService;
+	private final UserService userService;
 
 	@GetMapping(value = "list", produces = "application/json")
 	public ModelAndView getList(@RequestParam("pageNum") int pageNum, @RequestParam("amount") int amount) {
@@ -50,14 +54,23 @@ public class BoardController {
 
 	@GetMapping("new")
 	public ModelAndView newboard() {
-		return new ModelAndView("/board/new");
+		ModelAndView mv = new ModelAndView("/board/new");
+		return mv;
+	}
+	
+	@GetMapping("user")
+	public UserDTO user(Principal principal) {
+		log.info("게시글 작성유저 닉네임 :" + principal);
+		UserDTO user = userService.login(principal.getName());
+		return user;
 	}
 
 	@GetMapping("article")
 	public ModelAndView get(@RequestParam("no") long no) {
 		log.info("디테일: get");
+		BoardDTO board = boardService.read(no);
 		ModelAndView mv = new ModelAndView("/board/article");
-		mv.addObject("article", boardService.read(no));
+		mv.addObject("article", board);
 		return mv;
 	}
 

@@ -3,6 +3,7 @@ package com.ohwoo.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ohwoo.DTO.AuthDTO;
 import com.ohwoo.DTO.UserDTO;
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private PasswordEncoder customEncoder;
 
+	@Transactional
 	@Override
 	public boolean register(UserDTO user) {
 		// TODO Auto-generated method stub

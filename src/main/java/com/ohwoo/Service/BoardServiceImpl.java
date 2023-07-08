@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ohwoo.DTO.BoardDTO;
 import com.ohwoo.DTO.Criteria;
+import com.ohwoo.domain.JwtTokenProvider;
 import com.ohwoo.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +18,8 @@ import lombok.extern.log4j.Log4j;
 public class BoardServiceImpl implements BoardService {
 
 	private BoardMapper mapper;
-
+	private final JwtTokenProvider jwtTokenProvider;
+	
 	@Override
 	public void regist(BoardDTO board) {
 		// TODO Auto-generated method stub

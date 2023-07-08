@@ -17,7 +17,7 @@
 		
 		<div class="form-group">
 			<label>닉네임</label>
-			<input class="form-control" name='nickName' value="${article.author}" readonly="readonly">
+			<input class="form-control" name='nickName' readonly="readonly">
 		</div>
 		
 		<div class="form-group">
@@ -28,44 +28,66 @@
 		<button class="btn btn-secondary" type="button" id="back">돌아가기</button>
 	</form>
 	<script>
+	
+		var nickName; // 전역 변수로 nickName 정의
+	
+		$.ajax({
+	      type: "GET",
+	      url: "/board/user",
+	      data: JSON.stringify(),
+	      contentType: "application/json",
+	      dataType: "json",
+	      headers: {
+	        "Authorization": getCookie("Authorization")
+	      },
+	      success: function(response) {
+	     	//서버 응답에서 nickName 값을 추출
+	        // input 요소에 nickName 값을 대입
+	        nickName = response.nickName
+	        $("input[name='nickName']").val(nickName);
+
+	      },
+	      error: function(xhr, status, error) {
+	        console.log("에러");
+	      }
+	    });
 		$(document).ready(function() {
-	    // 이전 페이지로 돌아가는 함수
+	    	// 이전 페이지로 돌아가는 함수
 		    function goBack() {
 		      window.history.back();
 		    }
 
-	    // 버튼 클릭 이벤트 핸들러 등록
+	    	// 버튼 클릭 이벤트 핸들러 등록
 		    $("#back").on("click", goBack);
-	    
 		  });
 		
 		$("form").on("submit", function(event) {
- 			    event.preventDefault(); // 기본 제출 동작 방지 
+		    event.preventDefault(); // 기본 제출 동작 방지 
 
-			    var formData = {
-			      title: $("input[name='title']").val(),
-			      nickName: $("input[name='nickName']").val(),
-			      content: $("textarea[name='content']").val()
-			    };
-				
-			    $.ajax({
-			      type: "POST",
-			      url: "/board/article",
-			      data: JSON.stringify(formData),
-			      contentType: "application/json",
-			      dataType: "json",
-			      headers: {
-			        "Authorization": getCookie("Authorization")
-			      },
-			      success: function(response) {
-			        alert("글 작성이 완료되었습니다.");
-			        // 성공적으로 처리된 후 동작
-			        location.href = '/board/list';
-			      },
-			      error: function(xhr, status, error) {
-			        console.log("에러");
-			      }
-			    });
+		    var formData = {
+		      title: $("input[name='title']").val(),
+		      author: nickName,
+		      content: $("textarea[name='content']").val()
+		    };
+			alert(formData.author);
+		    $.ajax({
+		      type: "POST",
+		      url: "/board/article",
+		      data: JSON.stringify(formData),
+		      contentType: "application/json",
+		      dataType: "json",
+		      headers: {
+		        "Authorization": getCookie("Authorization")
+		      },
+		      success: function(response) {
+		        alert("글 작성이 완료되었습니다.");
+		        // 성공적으로 처리된 후 동작
+		        location.href = '/board/list?pageNum=1&amount=5';
+		      },
+		      error: function(xhr, status, error) {
+		        console.log("에러");
+		      }
+		    });
 		 }); 
 	</script>
 </body>

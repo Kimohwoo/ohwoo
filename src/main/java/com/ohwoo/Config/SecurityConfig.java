@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider()),
 						UsernamePasswordAuthenticationFilter.class); // JwtAutienticationFilter : jwt를 사용해서
 		http.formLogin().loginPage("/customLogin");
-//		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("Authorization");
+		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").deleteCookies("Authorization");
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
