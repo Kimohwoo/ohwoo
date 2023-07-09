@@ -20,122 +20,129 @@
 						<div class="panel-heading">Board Read Page</div>
 						<!--  /.panel-heading -->
 						<div class="panel-body">
-							
-							<div class="form-group">
-								<label>Post_id</label>
-								<input class="form-control" name='post_id' value='<c:out value="${article.no}"/>' readonly="readonly">
-							</div>
-							
-							<div class="form-group">
-								<label>Title</label>
-								<input class="form-control" name='title' value='<c:out value="${article.title}"/>' readonly="readonly">
-							</div>
-							
-							<div class="form-group">
-								<label>User Nickname</label>
-								<%-- <% String sessionId = (String) session.getAttribute("sessionId"); %> --%>
-								<input class="form-control" name='userId' value="${article.author}" readonly="readonly">
-							</div>
-							
-							<div class="form-group">
-								<label>Text area</label>
-								<textarea class="form-control" rows="5" name='content' readonly="readonly"><c:out value="${article.content}" /></textarea>
-							</div>
-							
-							<form id='operForm' action="/board/modify" method="get"><!-- get방식, 수정창 띄우는거니까 -->
-								<input type='hidden' id='post_id' name='post_id' value='<c:out value="${board.post_id}"/>'>
-								<input type='hidden' id='userId' name='userId' value='<c:out value="${board.userId}"/>'>
-								<button type="submit" data-oper='modify' class="btn btn-primary">Modify</button>
-								<button type="submit" data-oper='remove' class="btn btn-danger">Remove</button>
-								<button type="submit" data-oper='list' class="btn btn-info">List</button>
+							<form id='operForm' action="/board/article" method="post">
+								<div class="form-group">
+									<label>등록날짜</label>
+									<input class="form-control" name='regdate' id='regdate' value='<c:out value="${article.regdate}"/>' readonly="readonly">
+								</div>
+								
+								<div class="form-group">
+									<label>제목</label>
+									<input class="form-control" name='title' id="title" value='<c:out value="${article.title}"/>'>
+								</div>
+								
+								<div class="form-group">
+									<label>닉네임</label>
+									<input class="form-control" name='author' id="author" value="${article.author}" readonly="readonly">
+								</div>
+								
+								<div class="form-group">
+									<label>내 용</label>
+									<textarea class="form-control" rows="5" name='content' id="content"><c:out value="${article.content}" /></textarea>
+								</div>
+									<button type="button" onclick="modify()" class="btn btn-primary">글 수정</button>
+								    <button type="button" onclick="remove()" class="btn btn-danger">글 삭제</button>
+								    <button type="button" onclick="goBack()" class="btn btn-info">돌아가기</button>
 							</form>
-							
 							<hr/>
-
 							<!-- end panel-body -->
            			 	</div>
-           			 	
-					<table width="100%">
-                    	<thead>
-                    		<tr>
-                    			<th>댓글 작성자</th>
-                    			<th>내용</th>
-                    			<th>등록일</th>
-                    		</tr>
-                    	</thead>
-						<c:forEach items="${reply}" var="reply">
-							<tr>	
-                    			<td>
-                    				<c:out value="${reply.userId}"/>
-                    			</td>
-                    			
-                    			<td>
-                    				<c:out value="${reply.content}"/>
-                    			</td>
-	                     		
-	                     		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${reply.created_at}"/></td>
-	  							<td>
-	  								<a href="/reply/modify?post_id=${board.post_id}&comment_id=${reply.comment_id}">수정  |  </a>
-	  								<a href="/reply/remove?post_id=${board.post_id}&comment_id=${reply.comment_id}">삭제</a>
-	  							</td>	  							
-                        	</tr>
-						</c:forEach>
-					</table>
-           			 	
-           			<hr/>
-            		<div>						
-						<form id='reply123' action="/reply/write" method="post">
-						
-							<div>
-								<input type="hidden" name="post_id" value="${board.post_id}">
-							</div>
-							<div>
-								<label>댓글 작성자</label><br>
-								<%-- <% String sessionId = (String) session.getAttribute("sessionId"); %>
-								<input class="form-control" name='user_id' value='<%=sessionId %>' readonly="readonly"> --%>
-								<input name='nickName' value="${nickName}" readonly="readonly">
-							</div>
-							<div>
-								<label>댓글</label><br>
-								<textarea rows="5" cols="50" name="content"></textarea>
-							</div>
-								 <button id="reply" type="submit" >댓글 작성</button> 
-								 <button id="reset" type="reset" >취소</button>
-						</form>
-					</div>
-           			 	
        			 	</div>
 	  			</div>
     		</div>
   		</div>
   	</div>
 	<script type="text/javascript">
-	$(function() {
-		
-		var likecheck = ${likecheck};
-		 
+	function modify() {
+		var form = document.getElementById("operForm");
+		var formData = {
+				no: ${article.no},
+		        regdate: form.elements["regdate"].value,
+		        title: form.elements["title"].value,
+		        author: form.elements["author"].value,
+		        content: form.elements["content"].value
+		    };
+        
+        // AJAX 요청
+        $.ajax({
+            type: "PUT",
+            url: "/board/article",
+            data: JSON.stringify(formData),
+            contentType: "application/json",
+            headers: {
+    	        "Authorization": getCookie("Authorization")
+    	      },
+            success: function(response) {
+                // 수정 성공 시 동작
+                alert("수정이 완료되었습니다.")
+                location.href = "/board/list?pageNum=1&amount=5";
+            },
+            error: function(xhr, status, error) {
+                // 에러 처리
+                // ...
+                alert("수정 실패.")
+            }
+        });
+    }
 
-		if (document.forms["operForm"]) {
-		    let formObj = $("#operForm");
-		    
-		    $('button', formObj).on("click",
-		    function(e) {
-		      e.preventDefault();
-		      const operation = $(this).data("oper");
-		      console.log(operation);
-		      
-		      if (operation === 'remove') {
-		        formObj.attr("action", "/board/remove");
-		      }
-		      
-		      else if (operation === 'list') {
-		        formObj.find("#post_id").remove();
-		        formObj.attr("action", "/board/list")
-		      }
-		      formObj.submit();
-		    });
-		  }
-	});
+    function remove() {
+    	var form = document.getElementById("operForm");
+        var formData = {
+        		no: ${article.no},
+		        regdate: form.elements["regdate"].value,
+		        title: form.elements["title"].value,
+		        author: form.elements["author"].value,
+		        content: form.elements["content"].value
+		    };
+        
+        // AJAX 요청
+        $.ajax({
+            type: "DELETE",
+            url: "/board/article",
+            data: JSON.stringify(formData),
+            contentType: "application/json",
+            headers: {
+    	        "Authorization": getCookie("Authorization")
+    	      },
+            success: function(response) {
+                // 삭제 성공 시 동작
+				alert("삭제 완료");
+				location.href = "/board/list?pageNum=1&amount=5";
+            },
+            error: function(xhr, status, error) {
+                // 에러 처리
+                alert("삭제 실패");
+            }
+        });
+    }
+
+    function goBack() {
+        location.href = "/board/list?pageNum=1&amount=5";
+    }
+	
+	$.ajax({
+	      type: "GET",
+	      url: "/board/user",
+	      data: JSON.stringify(),
+	      contentType: "application/json",
+	      dataType: "json",
+	      headers: {
+	        "Authorization": getCookie("Authorization")
+	      },
+	      success: function(response) {
+	        // 성공적으로 처리된 후 동작
+	    	  if(response.nickName == '${article.author}'){
+				
+			  } else {
+				  location.href = "/board/article?no=" + '${article.no}';
+			  }
+	        
+	      },
+	      error: function(xhr, status, error) {
+	        console.log("에러");
+	      }
+	    });
+	
 	</script>
 </body>
 </html>

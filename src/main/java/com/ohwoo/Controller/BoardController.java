@@ -3,8 +3,8 @@ package com.ohwoo.Controller;
 import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,6 +73,15 @@ public class BoardController {
 		mv.addObject("article", board);
 		return mv;
 	}
+	
+	@GetMapping("myarticle")
+	public ModelAndView getMine(@RequestParam("no") long no) {
+		log.info("myArticle: " + no);
+		BoardDTO board = boardService.read(no);
+		ModelAndView mv = new ModelAndView("/board/myarticle");
+		mv.addObject("article", board);
+		return mv;
+	}
 
 	@PostMapping("article")
 	public BoardDTO register(@RequestBody BoardDTO board) {
@@ -82,14 +91,22 @@ public class BoardController {
 	}
 
 	@PutMapping("article")
-	public BoardDTO modify(@RequestBody BoardDTO board) {
-		boardService.update(board);
-		return board;
+	public ResponseEntity<BoardDTO> modify(@RequestBody BoardDTO board) {
+		if (boardService.update(board)) {
+	        return ResponseEntity.status(HttpStatus.OK).body(board);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(null);
+	    }
 	}
 
 	@DeleteMapping("article")
-	public void delete(@RequestBody BoardDTO board) {
-		boardService.delete(board);
+	public ResponseEntity<String> delete(@RequestBody BoardDTO board) {
+		log.info("delete 확인용");
+		if(boardService.delete(board)) {
+			return ResponseEntity.status(HttpStatus.OK).body("삭제 되었습니다.");
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 실패");
+		}
 	}
 
 }

@@ -70,49 +70,8 @@
 		
 		
 		function article(no){
-			
-			var user;
-			
-			$.ajax({
-			      type: "GET",
-			      url: "/board/user",
-			      data: JSON.stringify(),
-			      contentType: "application/json",
-			      dataType: "json",
-			      headers: {
-			        "Authorization": getCookie("Authorization")
-			      },
-			      success: function(response) {
-			        alert(response.nickName);
-			        // 성공적으로 처리된 후 동작
-			        user = response;
-			        $.ajax({
-					      type: "GET",
-					      url: "/board/article",
-					      data: {
-					    	    no: no,
-					    	    user: JSON.stringify(user)
-					    	  },
-					      contentType: "application/json",
-					      dataType: "json",
-					      headers: {
-					        "Authorization": getCookie("Authorization")
-					      },
-					      success: function(response) {
-					        alert("글 작성이 완료되었습니다.");
-					        // 성공적으로 처리된 후 동작
-					        location.href = '/board/list?pageNum=1&amount=5';
-					      },
-					      error: function(xhr, status, error) {
-					        console.log("에러");
-					      }
-					  });
-			      },
-			      error: function(xhr, status, error) {
-			        console.log("에러");
-			      }
-			    });
-			}
+			location.href="/board/article?no=" + no;	
+		}
 		
 	</script>
 </body>

@@ -77,8 +77,6 @@
 							</div>
 							<div>
 								<label>댓글 작성자</label><br>
-								<%-- <% String sessionId = (String) session.getAttribute("sessionId"); %>
-								<input class="form-control" name='user_id' value='<%=sessionId %>' readonly="readonly"> --%>
 								<input name='nickName' value="${nickName}" readonly="readonly">
 							</div>
 							<div>
@@ -95,30 +93,26 @@
     		</div>
   		</div>
   	</div>
-	<script type="text/javascript">
-	$(function() {
-		if (document.forms["operForm"]) {
-		    let formObj = $("#operForm");
-		    
-		    $('button', formObj).on("click",
-		    function(e) {
-		      e.preventDefault();
-		      const operation = $(this).data("oper");
-		      console.log(operation);
-		      
-		      if (operation === 'remove') {
-		        formObj.attr("action", "/board/remove");
-		      }
-		      
-		      else if (operation === 'list') {
-		        formObj.find("#post_id").remove();
-		        formObj.attr("action", "/board/list")
-		      }
-		      formObj.submit();
-		    });
-		}
-	});
-	
+	<script>
+	$.ajax({
+	      type: "GET",
+	      url: "/board/user",
+	      data: JSON.stringify(),
+	      contentType: "application/json",
+	      dataType: "json",
+	      headers: {
+	        "Authorization": getCookie("Authorization")
+	      },
+	      success: function(response) {
+	        //유저 닉네임 검사후 뷰 포워딩
+			if(response.nickName == '${article.author}'){
+				location.href = "/board/myarticle?no=" + '${article.no}';
+			}
+	      },
+	      error: function(xhr, status, error) {
+	        console.log("에러");
+	      }
+		});
 	</script>
 </body>
 </html>

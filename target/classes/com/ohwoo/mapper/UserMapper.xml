@@ -60,7 +60,7 @@
 	</insert>
 	
 	<update id="modify">
-		UPDATE INTO user(id, password, name, nickname, phone, address, level)
+		UPDATE user(id, password, name, nickname, phone, address, level)
 		VALUES(
 			#{username},
 			#{password},
@@ -75,7 +75,7 @@
 	<delete id="delete">
 		DELETE FROM user 
 		WHERE id = #{username} 
-		AND password > #{password};
+		AND password = #{password};
 	</delete>
 	
 </mapper>
