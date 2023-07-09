@@ -22,5 +22,5 @@ public class CustomPasswordEncoder implements PasswordEncoder {
 		log.info("true면 로그인 ->" + BCrypt.checkpw(rawPassword.toString(), encodedPassword));
 		return BCrypt.checkpw(rawPassword.toString(), encodedPassword);
 	}
-
+	
 }

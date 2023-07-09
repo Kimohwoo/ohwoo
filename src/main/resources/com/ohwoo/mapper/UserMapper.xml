@@ -60,22 +60,19 @@
 	</insert>
 	
 	<update id="modify">
-		UPDATE user(id, password, name, nickname, phone, address, level)
-		VALUES(
-			#{username},
-			#{password},
-			#{name},
-			#{nickName},
-			#{phone},
-			#{address},
-			#{level}
-		)
+		UPDATE user
+		SET id = #{username},
+			name = #{name},
+			nickname = #{nickName},
+			phone = #{phone},
+			address = #{address},
+			level = #{level}
+		WHERE id = #{username}
 	</update>
 	
 	<delete id="delete">
 		DELETE FROM user 
 		WHERE id = #{username} 
-		AND password = #{password};
 	</delete>
 	
 </mapper>

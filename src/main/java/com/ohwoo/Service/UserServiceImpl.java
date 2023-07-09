@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
 	public boolean register(UserDTO user) {
 		// TODO Auto-generated method stub
 		user.setPassword(customEncoder.encode(user.getPassword()));
+		user.setLevel("4");
 		log.info("유저 비밀번호 인코딩 확인 : " + user.getPassword());
 		if (userMapper.regist(user) == 1) {
 			log.info("유저 만들어지는지 확인" + user);

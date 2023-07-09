@@ -1,13 +1,20 @@
 package com.ohwoo.Controller;
 
+import java.security.Principal;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,17 +37,23 @@ public class UserController {
 	private final JwtTokenProvider jwtTokenProvider;
 	private final PasswordEncoder passwordEncoder;
 
-	@PostMapping("/{id}")
-	public String checkId(String username) {
-		log.info("idCheck" + username);
-		return userService.IdCheck(username);
+	@GetMapping("{id}")
+	public ModelAndView updateuser(@PathVariable("id")String username) {
+		return new ModelAndView("/user/updateUser");
 	}
-
+	
 	@GetMapping("/user-reg")
 	public ModelAndView addUser() {
 		ModelAndView mv = new ModelAndView("/user/addUser");
 		return mv;
 	}
+	
+	@PostMapping("/{id}")
+	public String checkId(String username) {
+		log.info("idCheck : " + username);
+		return userService.IdCheck(username);
+	}
+
 	
 	@PostMapping("/login")
 	public ResponseEntity<String> login(@RequestBody UserDTO user) {
@@ -64,15 +77,37 @@ public class UserController {
 		}
 		return null;
 	}
-
-	@PutMapping("/user")
-	public void modifyUser() {
-
+	
+	@PostMapping("/user-check")
+	public UserDTO getUser(Principal principal) {
+		UserDTO user = null;
+		if(principal.getName() != null) {
+			log.info("principal : " + principal.getName()); 
+			user = userService.login(principal.getName());
+			return user;
+		} else {
+			return user;
+		}
 	}
 
-	@DeleteMapping("/user")
-	public void remove() {
+	@PatchMapping("{id}")
+	public ResponseEntity<String> modifyUser(@PathVariable("id") String username,@RequestBody UserDTO user) {
+		log.info("수정 오는지 : " + username);
+		if(userService.modify(user)) {
+			return ResponseEntity.status(HttpStatus.OK).body("수정완료");
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("수정 실패");
+		}
+		
+	}
 
+	@DeleteMapping("{id}")
+	public ResponseEntity<String> remove(@PathVariable("id")String username, @RequestBody UserDTO user) {
+		if(userService.delete(user)) {
+			return ResponseEntity.status(HttpStatus.OK).body("회원 삭제");
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 실패");
+		}
 	}
 
 }
