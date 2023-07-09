@@ -1,6 +1,5 @@
 com\ohwoo\Controller\HomeController.class
 com\ohwoo\Config\RootConfig.class
-com\ohwoo\domain\CustomLoginSuccessHandler.class
 com\ohwoo\Config\SecurityConfig.class
 com\ohwoo\mapper\UserMapper.class
 com\ohwoo\domain\CustomPasswordEncoder.class
@@ -13,11 +12,9 @@ com\ohwoo\mapper\BoardMapper.class
 com\ohwoo\DTO\FileDTO.class
 com\ohwoo\DTO\LikesDTO.class
 com\ohwoo\Service\BoardServiceImpl.class
-com\ohwoo\domain\CustomLoginFailureHandler.class
 com\ohwoo\Service\BoardService.class
 com\ohwoo\domain\CustomUserDetailsService.class
 com\ohwoo\Service\UserService.class
-com\ohwoo\domain\CustomAccessDeniedHandler.class
 com\ohwoo\Controller\UserController.class
 com\ohwoo\DTO\AuthDTO.class
 com\ohwoo\Config\ServletConfig.class

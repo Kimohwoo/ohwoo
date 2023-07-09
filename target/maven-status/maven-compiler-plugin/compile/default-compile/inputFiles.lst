@@ -1,13 +1,9 @@
-C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\CustomLoginSuccessHandler.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\DTO\ResponseDTO.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\DTO\LoginRequestDTO.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Config\SecurityInitializer.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\CustomPasswordEncoder.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Controller\HomeController.java
-C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\JwtAuthorizationFilter.java
-C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\CustomAccessDeniedHandler.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\DTO\LikesDTO.java
-C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\JwtProperties.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Config\ServletConfig.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Config\SecurityConfig.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\CustomUserDetailsService.java
@@ -19,12 +15,12 @@ C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\DTO\FileDTO.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\JwtAuthenticationFilter.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Service\UserServiceImpl.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\mapper\UserMapper.java
+C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\JwtTokenProvider.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\DTO\UserDTO.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\DTO\BoardDTO.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Service\UserService.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Config\RootConfig.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Config\WebConfig.java
-C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\CustomLoginFailureHandler.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\CustomUserDetails.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Service\BoardService.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Service\BoardServiceImpl.java

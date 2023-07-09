@@ -4,15 +4,21 @@ DROP TABLE user;
 DROP TABLE user_auth;
 DROP TABLE ban;
 DROP TABLE board;
-DROP TABLE file;
+DROP TABLE files;
 DROP TABLE likes;
 DROP TABLE images;
+
+COMMIT;
+SELECT * FROM user;
+SELECT * FROM user_auth;
+SELECT * FROM board;
+ALTER TABLE board AUTO_INCREMENT = 1;
 
 CREATE TABLE user(
    id VARCHAR(50) PRIMARY KEY,
    password VARCHAR(100),
    name VARCHAR(10),
-   nickname VARCHAR(10),
+   nickname VARCHAR(10) UNIQUE,
    phone CHAR(11),
    address VARCHAR(50),
    level VARCHAR(5) UNIQUE,
@@ -30,7 +36,7 @@ CREATE TABLE ban(
 
 CREATE TABLE user_auth(
 	id VARCHAR(50),
-    auth VARCHAR(50),
+    role VARCHAR(50),
     CONSTRAINT authfk_id_user_id FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -41,7 +47,7 @@ CREATE TABLE board(
    content VARCHAR(500),
    regdate DATE,
    updateday DATE,
-   CONSTRAINT brdfk_author_user_id FOREIGN KEY(author) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
+   CONSTRAINT brdfk_author_user_id FOREIGN KEY(author) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE images(
@@ -66,11 +72,7 @@ CREATE TABLE likes(
     CONSTRAINT likefk_uid_user_id FOREIGN KEY(uid) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-COMMIT;
-
 SELECT * FROM user;
 SELECT * FROM user_auth;
-INSERT INTO user_auth(id, auth)
-VALUES ('1111', 'ROLE_USER');
 
 COMMIT;
