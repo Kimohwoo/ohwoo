@@ -2,12 +2,20 @@ USE ohwoodb;
 
 DROP TABLE user;
 DROP TABLE user_auth;
-DROP TABLE ban;
 DROP TABLE board;
 DROP TABLE files;
 DROP TABLE likes;
 DROP TABLE images;
 
+UPDATE board 
+		SET title = '수정테스트',
+			content = '수정테스트',
+			updateday = sysdate()
+		WHERE no = 1;
+        
+ALTER TABLE board AUTO_INCREMENT = 1;
+
+use ohwoodb;
 COMMIT;
 SELECT * FROM user;
 SELECT * FROM user_auth;
@@ -15,23 +23,14 @@ SELECT * FROM board;
 ALTER TABLE board AUTO_INCREMENT = 1;
 
 CREATE TABLE user(
-   id VARCHAR(50) PRIMARY KEY,
+   id VARCHAR(50) PRIMARY KEY NOT NULL,
    password VARCHAR(100),
    name VARCHAR(10),
    nickname VARCHAR(10) UNIQUE,
    phone CHAR(11),
    address VARCHAR(50),
-   level VARCHAR(5) UNIQUE,
+   level VARCHAR(5),
    regdate DATE
-);
-
-CREATE TABLE ban(
-	id VARCHAR(50),
-    level VARCHAR(5),
-    count int,
-    date DATE,
-    CONSTRAINT banfk_id_useridpk FOREIGN KEY(id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT banfk_level_userlevel FOREIGN KEY(level) REFERENCES user(level) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE user_auth(

@@ -49,9 +49,9 @@ public class UserController {
 	}
 	
 	@PostMapping("/{id}")
-	public String checkId(String username) {
+	public ResponseEntity<String> checkId(@PathVariable("id") String username) {
 		log.info("idCheck : " + username);
-		return userService.IdCheck(username);
+		return ResponseEntity.status(HttpStatus.OK).body(userService.IdCheck(username));
 	}
 
 	

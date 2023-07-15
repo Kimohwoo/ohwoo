@@ -63,8 +63,8 @@ public class UserServiceImpl implements UserService {
 	public String IdCheck(String username) {
 		// TODO Auto-generated method stub
 		String getName = userMapper.idCheck(username);
-		if (getName.equals(username)) {
-			return "Already Use";
+		if (username.equals(getName)) {
+			return "Use";
 		} else {
 			return "Not Use";
 		}

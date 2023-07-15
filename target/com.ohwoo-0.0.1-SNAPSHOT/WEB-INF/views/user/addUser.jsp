@@ -24,14 +24,6 @@
 			    <label for="password">Password</label>
 			    <div class="invalid-feedback" data-sb-feedback="password:required">Password가 필요합니다.</div>
 			</div>
-			<!-- Email address input-->
-			<div class="form-floating mb-3">
-			    <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
-			    <label for="email">Email address</label>
-			    <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-			    <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-			</div>
-			<!-- Email address input-->
 			<div class="form-floating mb-3">
 			    <input class="form-control" id="nickName" name="nickName" type="text" placeholder="닉네임" data-sb-validations="required" />
 			    <label for="email">닉네임</label>
@@ -75,29 +67,63 @@
 		      var formData = {
 		        username: $("input[name='username']").val(),
 		        password: $("input[name='password']").val(),
-		        email: $("input[name='email']").val(),
 		        nickName: $("input[name='nickName']").val(),
 		        phone: $("input[name='phone']").val()
 		      };
-		
-		      $.ajax({
-		        type: "POST",
-		        url: "/user/user-reg",
-		        data: JSON.stringify(formData),
-		        contentType: "application/json",
-		        dataType: "json",
-		        success: function(response) {
-		          // 성공적으로 처리된 후 동작
-		          alert("회원가입이 정상적으로 완료되었습니다!!");
-		          // 다른 동작 수행
-		          window.location.href = "/customLogin";
-		        },
-		        error: function(xhr, status, error) {
-		          // 오류 발생 시 동작
-		          console.log("Error sending message!");
-		          // 다른 동작 수행
-		        }
-		      });
+			if(formData.username == null || formData.username == ""){
+				alert("아이디를 입력하세요");
+				form.username.focus();
+			} else if(formData.username.indexOf(" ")>0){
+				alert("아이디에 공백이 있습니다. 공백을 제거해주세요.");
+				form.username.focus();
+			} else if(formData.username.length < 4){
+				alert("아이디는 4자 이상이어야 합니다.");
+			} else if(formData.password == null || formData.password == ""){
+				alert("비밀번호를 입력하세요");
+				form.password.focus();
+			} else if(formData.password.length < 6 || formData.password.length > 32){
+				alert("비밀번호는 6자 이상 32자 이하 입니다.")
+			} else if(formData.nickName == null || formData.nickName == ""){
+				alert("닉네임을 입력해주세요")
+				form.nickName.focus();
+			} else if(formData.nickName.indexOf(" ")>0){
+				alert("닉네임에 공백이 있습니다. 공백을 제거해주세요.");
+				form.nickName.focus();
+			} else {
+				$.ajax({
+			        type: "POST",
+			        url: "/user/"+formData.username,
+			        data: JSON.stringify(formData),
+			        contentType: "application/json",
+			        success: function(response) {
+			          // 성공적으로 처리된 후 동작
+			         if(response == "Use"){
+			        	 alert("사용중인 아이디 입니다. 아이디를 변경해주세요");
+			        	 form.username.focus();
+			         } else {
+			        	 $.ajax({
+						        type: "POST",
+						        url: "/user/user-reg",
+						        data: JSON.stringify(formData),
+						        contentType: "application/json",
+						        dataType: "json",
+						        success: function(response) {
+						          // 성공적으로 처리된 후 동작
+						          alert("회원가입이 정상적으로 완료되었습니다!!");
+						          // 다른 동작 수행
+						          window.location.href = "/customLogin";
+						        },
+						        error: function(xhr, status, error) {
+						          console.log("에러");
+						        }
+					      });
+			         }
+			        },
+			        error: function(xhr, status, error) {
+			          alert("중복된 아이디 입니다. 아이디를 변경해주세요");
+			        }
+			      });
+		      }
 		    });
 		  });
 		</script>

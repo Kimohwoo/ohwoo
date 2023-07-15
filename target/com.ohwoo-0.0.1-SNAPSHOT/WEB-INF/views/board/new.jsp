@@ -69,7 +69,7 @@
 		      author: nickName,
 		      content: $("textarea[name='content']").val()
 		    };
-			alert(formData.author);
+
 		    $.ajax({
 		      type: "POST",
 		      url: "/board/article",

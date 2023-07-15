@@ -40,54 +40,6 @@
 							<hr/>
 
            			 	</div>
-           			 	
-					<table width="100%">
-                    	<thead>
-                    		<tr>
-                    			<th>댓글 작성자</th>
-                    			<th>내용</th>
-                    			<th>등록일</th>
-                    		</tr>
-                    	</thead>
-						<c:forEach items="${reply}" var="reply">
-							<tr>	
-                    			<td>
-                    				<c:out value="${reply.userId}"/>
-                    			</td>
-                    			
-                    			<td>
-                    				<c:out value="${reply.content}"/>
-                    			</td>
-	                     		
-	                     		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${reply.created_at}"/></td>
-	  							<td>
-	  								<a href="/reply/modify?post_id=${board.post_id}&comment_id=${reply.comment_id}">수정  |  </a>
-	  								<a href="/reply/remove?post_id=${board.post_id}&comment_id=${reply.comment_id}">삭제</a>
-	  							</td>	  							
-                        	</tr>
-						</c:forEach>
-					</table>
-           			 	
-           			<hr/>
-            		<div>						
-						<form id='reply123' action="/reply/write" method="post">
-						
-							<div>
-								<input type="hidden" name="post_id" value="${board.post_id}">
-							</div>
-							<div>
-								<label>댓글 작성자</label><br>
-								<input name='nickName' value="${nickName}" readonly="readonly">
-							</div>
-							<div>
-								<label>댓글</label><br>
-								<textarea rows="5" cols="50" name="content"></textarea>
-							</div>
-								 <button id="reply" type="submit" >댓글 작성</button> 
-								 <button id="reset" type="reset" >취소</button>
-						</form>
-					</div>
-           			 	
        			 	</div>
 	  			</div>
     		</div>
@@ -110,7 +62,7 @@
 			}
 	      },
 	      error: function(xhr, status, error) {
-	        console.log("에러");
+	        console.log("비회원");
 	      }
 		});
 	</script>

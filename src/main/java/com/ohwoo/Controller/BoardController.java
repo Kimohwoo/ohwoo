@@ -1,6 +1,7 @@
 package com.ohwoo.Controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -36,19 +37,18 @@ public class BoardController {
 	@GetMapping(value = "list", produces = "application/json")
 	public ModelAndView getList(@RequestParam("pageNum") int pageNum, @RequestParam("amount") int amount) {
 		log.info("board/list 오는지 확인");
-		ModelAndView mv = new ModelAndView("/board/list");
-		Criteria cri;
-		if(pageNum != 0 && amount != 0) {
-			cri = new Criteria(pageNum, amount);
-		} else {
+		
+		Criteria cri = null;
+		if((pageNum == 0) || (amount ==0)) {
 			cri = new Criteria();
+		} else {
+			cri = new Criteria(pageNum, amount);
 		}
 		
 		List<BoardDTO> list = boardService.getListPaging(cri);
-		
-		mv.addObject("list", list);
-		log.info(list);
+		ModelAndView mv = new ModelAndView("/board/list");
 		mv.addObject("pages", cri);
+		mv.addObject("list", list);
 		return mv;
 	}
 

@@ -18,9 +18,9 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link" href="/board/list?pageNum=1&amount=5">커뮤니티</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item" id="udUser"><a class="nav-link" href="#contact"></a></li>
+                        <li class="nav-item" id="user"><a class="nav-link" href="/customLogin">로그인</a></li>
                     </ul>
                 </div>
             </div>
@@ -35,8 +35,8 @@
                     </div>
                     <div class="col-lg-8 align-self-baseline">
                         <p class="text-white-75 mb-5">팀 프로젝트에서 하지 못했던 그리고 하고싶었던 여러 기능들을 만들고 싶다는 목표로 시작하게된 가벼운 프로젝트입니다!! </p>
-                        <a class="btn btn-primary btn-xl" href="/user/user-reg">회원가입</a>
-                        <a class="btn btn-primary btn-xl" href="/customLogin">로그인</a>
+                        <a class="btn btn-primary btn-xl" href="/user/user-reg" id="usrBtn1">회원가입</a>
+                        <a class="btn btn-primary btn-xl" href="/customLogin" id="usrBtn2">로그인</a>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
             </div>
         </section>
         <!-- Services-->
-        <section class="page-section" id="services">
+        <!-- <section class="page-section" id="services">
             <div class="container px-4 px-lg-5">
                 <h2 class="text-center mt-0">At Your Service</h2>
                 <hr class="divider" />
@@ -90,7 +90,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
         <!-- Portfolio-->
         <div id="portfolio">
             <div class="container-fluid p-0">
@@ -178,5 +178,30 @@
             </div>
         </section>
         <jsp:include page="./include/footer.jsp"></jsp:include>
+        <script>
+        var cookie = getCookie("Authorization")
+        //로그인 유저
+        if(cookie != null){
+			$.ajax({
+				type: "POST",
+				url: "/user/user-check",
+				contentType: "application/json",
+				headers: {
+				"Authorization": cookie
+				},
+				success: function(response) {
+				// 수정 성공 시 동작
+					$("#user").html("<a class='nav-link' href='/logout'>로그아웃</a>")
+					$("#udUser").html("<a class='nav-link' href='/user/" + response.username + "'>회원수정</a>")
+					$("#usrBtn1").attr("href", "/user/" + response.username).text("회원수정");
+					$("#usrBtn2").attr("href", "/logout").text("로그아웃");
+				},
+				error: function(xhr, status, error) {
+				// 에러 처리
+				console.log("에러");
+				}
+			});
+        }
+        </script>
     </body>
 </html>

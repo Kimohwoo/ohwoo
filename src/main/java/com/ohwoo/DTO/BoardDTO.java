@@ -1,7 +1,5 @@
 package com.ohwoo.DTO;
 
-import java.sql.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +13,7 @@ public class BoardDTO {
 	private String title;
 	private String author;
 	private String content;
-	private Date regdate;
-	private Date updateDay;
+	private String regdate;
+	private String updateDay;
 
 }

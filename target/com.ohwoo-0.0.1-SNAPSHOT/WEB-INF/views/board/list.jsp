@@ -27,9 +27,9 @@
 					
 						<td><a href="javascript:article(<c:out value="${board.no}"/>)"><c:out value="${board.title}" /><c:out value="${board.content}" /></a></td>
 						
-						<td><c:out value="${board.content }" /></td>
+						<td><c:out value="${board.content}" /></td>
 						
-						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate}" /></td>
+						<td><c:out value="${board.regdate}" /></td>
                    	</tr>
 				</c:forEach>
 			</tbody>
@@ -42,7 +42,7 @@
 		    </li>
 			
 		    <li class="page-item">
-		        <a href="javascript:page(<c:out value='${pages.pageNum+1}' />, 5)" aria-label="Next" class="page-link" id="next">
+		        <a href="javascript:page(<c:out value='${pages.pageNum+1}' />, ${pages.amount })" aria-label="Next" class="page-link" id="next">
 		            <span aria-hidden="true">다음</span>
 		        </a>
 		    </li>
@@ -51,23 +51,34 @@
 	
 	<script>
 		$().ready(function(){
-			
-			function newBoard(){
-			        window.location.href = '/board/new';
-				}
-			
-			$("#newBoard").on("click", newBoard);
-		})
-		
-		var list = '${list}';
+			$("#newBoard").on("click", function(){
+				$.ajax({
+						type: "GET",
+						url: "/board/user",
+						data: JSON.stringify(),
+						contentType: "application/json",
+						dataType: "json",
+						headers: {
+							"Authorization": getCookie("Authorization")
+						},
+						success: function(response) {
+							// 유저 닉네임 확인 후 페이지 전환
+							window.location.href = '/board/new';
+						},
+						error: function(xhr, status, error) {
+							alert("로그인 후 이용가능합니다.");
+							location.href="/customLogin";
+						}
+					});
+				});
+			})
+
 		function page(pageNum, amount){
-	       location.href="/board/list?pageNum=" + pageNum +
+			location.href="/board/list?pageNum=" + pageNum +
 			"&amount=" + amount
 		}
-		if (list.length == 2) {
-	        document.getElementById('next').style.display = 'none';
-	    }
 		
+		/* document.getElementById('next').style.display = 'none'; */
 		
 		function article(no){
 			location.href="/board/article?no=" + no;	

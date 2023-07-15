@@ -16,18 +16,12 @@ public class HomeController {
 	@GetMapping("/")
 	public String home() {
 		log.info("home입니다");
-		return "home";
+		return "index";
 	}
 
 	@GetMapping("/customLogin")
 	public String login(){
 		return "customLogin";
-	}
-	
-	@PostMapping("/test")
-	@ResponseBody
-	public String test() {
-		return "<h1>테스트 통과</h1>";
 	}
 
 }

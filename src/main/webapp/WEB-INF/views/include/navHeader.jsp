@@ -11,10 +11,33 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link" href="/board/list?pageNum=1&amount=5">커뮤니티</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/">홈</a></li>
+                        <li class="nav-item" id="user"><a class="nav-link" href="/customLogin">로그인</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact"></a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <script>
+        var cookie = getCookie("Authorization")
+        //로그인 유저
+        if(cookie != null){
+			$.ajax({
+				type: "POST",
+				url: "/user/user-check",
+				contentType: "application/json",
+				headers: {
+				"Authorization": cookie
+				},
+				success: function(response) {
+				// 수정 성공 시 동작
+					$("#user").html("<a class='nav-link' href='/logout'>로그아웃</a>")
+					$("#userBtn").html("")
+				},
+				error: function(xhr, status, error) {
+				// 에러 처리
+				console.log("에러");
+				}
+			});
+        }
+        </script>

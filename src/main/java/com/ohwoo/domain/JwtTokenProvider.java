@@ -32,7 +32,7 @@ public class JwtTokenProvider {
 
 	private String SECRETKEY = "ohwooServer";
 	// 토큰 만료시간 단위 : ms 기본 30분 -> 24시간 변경
-	private long TOKEN_VALID_TIME = 24 * 60 * 60 * 1000L;
+	private long TOKEN_VALID_TIME = 30 * 24 * 60 * 60 * 1000L;
 	@Autowired
 	private final UserDetailsService userDetailsService;
 
@@ -60,7 +60,7 @@ public class JwtTokenProvider {
 
 	// Jwt 토큰에서 인증 정보 조회
 	public Authentication getAuthentication(String token) {
-		log.info("token" + token);
+		log.info("token ->" + token);
 		UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
 		log.info("user" + userDetails);
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());

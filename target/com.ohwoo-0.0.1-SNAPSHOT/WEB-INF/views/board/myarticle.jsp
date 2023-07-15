@@ -132,7 +132,6 @@
 	      success: function(response) {
 	        // 성공적으로 처리된 후 동작
 	    	  if(response.nickName == '${article.author}'){
-				alert("게시글 유저 맞음");
 			  } else {
 				  location.href = "/board/article?no=" + '${article.no}';
 			  }
@@ -140,6 +139,7 @@
 	      },
 	      error: function(xhr, status, error) {
 	        console.log("에러");
+	        location.href = "/board/article?no=" + '${article.no}';
 	      }
 	    });
 	
