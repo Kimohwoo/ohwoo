@@ -1,4 +1,5 @@
 USE ohwoodb;
+show tables;
 
 DROP TABLE user;
 DROP TABLE user_auth;
@@ -6,7 +7,7 @@ DROP TABLE board;
 DROP TABLE files;
 DROP TABLE likes;
 DROP TABLE images;
-DROP TABLE visitcount;
+DROP TABLE visitor;
         
 ALTER TABLE board AUTO_INCREMENT = 1;
 
