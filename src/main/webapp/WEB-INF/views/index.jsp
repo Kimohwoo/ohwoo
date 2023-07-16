@@ -46,7 +46,9 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h2 class="text-white mt-0">어서오세요! 이 페이지에 현재까지 방문자 수 카운터로 띄울 예정입니다.</h2>
+                        <h2 class="text-white mt-0">어서오세요!</h2>
+                        <h2 class="text-white mt-0">금일 방문자 수 <span style="color: black;">[${TodayVisitor}]</span></h2>
+                        <h2 class="text-white mt-0">총 방문자 수 <span style="color: black;">[${AllVisitor}]</span></h2>
                         <hr class="divider divider-light" />
                         <p class="text-white-75 mb-4"></p>
                         <a class="btn btn-light btn-xl" href="#services">Get Started!</a>

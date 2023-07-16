@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+
+<mapper namespace="com.ohwoo.mapper.VisitorMapper">
+
+	<select id="selectDayVisitor" resultType="com.ohwoo.DTO.VisitorDTO">
+	<![CDATA[
+		SELECT SUM(count) as count, regdate
+		FROM visitor
+		WHERE regdate = #{regDate}
+		]]>
+	</select>
+	
+	<select id="selectAllVisitor" resultType="com.ohwoo.DTO.VisitorDTO">
+	<![CDATA[
+		SELECT SUM(count) as count
+		FROM visitor
+		]]>
+	</select>
+	
+	<insert id="insertVisitor">
+		INSERT INTO visitor(count, regdate)
+		VALUES(
+			#{count},
+			sysdate()
+		)
+	</insert>
+	
+	<update id="updateVisitor">
+		UPDATE visitor 
+		SET count = #{count} + 1
+		WHERE regdate = sysdate()
+	</update>
+
+</mapper>

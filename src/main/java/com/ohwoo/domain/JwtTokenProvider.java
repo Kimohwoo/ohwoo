@@ -31,7 +31,7 @@ import lombok.extern.log4j.Log4j;
 public class JwtTokenProvider {
 
 	private String SECRETKEY = "ohwooServer";
-	// 토큰 만료시간 단위 : ms 기본 30분 -> 24시간 변경
+	// 토큰 만료시간 단위 : ms 기본 30분 -> 30일 변경
 	private long TOKEN_VALID_TIME = 30 * 24 * 60 * 60 * 1000L;
 	@Autowired
 	private final UserDetailsService userDetailsService;
