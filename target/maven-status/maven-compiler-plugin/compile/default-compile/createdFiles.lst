@@ -14,12 +14,16 @@ com\ohwoo\mapper\BoardMapper.class
 com\ohwoo\DTO\FileDTO.class
 com\ohwoo\DTO\ResponseDTO.class
 com\ohwoo\domain\JwtAuthenticationFilter.class
+com\ohwoo\Service\VisitorServiceImpl.class
+com\ohwoo\Service\VisitorService.class
 com\ohwoo\DTO\LikesDTO.class
+com\ohwoo\mapper\VisitorMapper.class
 com\ohwoo\domain\CustomUserDetails.class
 com\ohwoo\Service\BoardServiceImpl.class
 com\ohwoo\Service\BoardService.class
 com\ohwoo\domain\CustomUserDetailsService.class
 com\ohwoo\DTO\LoginRequestDTO.class
+com\ohwoo\DTO\VisitorDTO.class
 com\ohwoo\Service\UserService.class
 com\ohwoo\Controller\UserController.class
 com\ohwoo\DTO\AuthDTO.class

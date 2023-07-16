@@ -16,11 +16,15 @@ C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\JwtAuthenticationFilter.
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Service\UserServiceImpl.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\mapper\UserMapper.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\JwtTokenProvider.java
+C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Service\VisitorServiceImpl.java
+C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\DTO\VisitorDTO.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\DTO\UserDTO.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\DTO\BoardDTO.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Service\UserService.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Config\RootConfig.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Config\WebConfig.java
+C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\mapper\VisitorMapper.java
+C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Service\VisitorService.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\domain\CustomUserDetails.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Service\BoardService.java
 C:\Users\kowko\git\ohwoo\src\main\java\com\ohwoo\Service\BoardServiceImpl.java

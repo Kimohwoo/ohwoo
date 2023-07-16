@@ -6,14 +6,11 @@ DROP TABLE board;
 DROP TABLE files;
 DROP TABLE likes;
 DROP TABLE images;
-
-UPDATE board 
-		SET title = '수정테스트',
-			content = '수정테스트',
-			updateday = sysdate()
-		WHERE no = 1;
+DROP TABLE visitcount;
         
 ALTER TABLE board AUTO_INCREMENT = 1;
+
+SELECT sysdate();
 
 use ohwoodb;
 COMMIT;
@@ -21,6 +18,24 @@ SELECT * FROM user;
 SELECT * FROM user_auth;
 SELECT * FROM board;
 ALTER TABLE board AUTO_INCREMENT = 1;
+SELECT COUNT(*)
+		FROM visitor;
+SELECT * FROM visitor;
+
+CREATE TABLE visitor(
+	id bigint auto_increment primary KEY,
+    count bigint,
+    regdate DATE
+);
+
+SELECT SUM(count) as count
+		FROM visitor;
+
+SELECT SUM(count) as count
+FROM visitor
+WHERE regdate = '2023-07-16';
+
+SELECT * FROM visitor;
 
 CREATE TABLE user(
    id VARCHAR(50) PRIMARY KEY NOT NULL,
