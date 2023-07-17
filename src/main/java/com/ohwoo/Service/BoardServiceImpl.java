@@ -3,6 +3,7 @@ package com.ohwoo.Service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ohwoo.DTO.BoardDTO;
 import com.ohwoo.DTO.Criteria;
@@ -49,10 +50,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int hit(BoardDTO board) {
+	public boolean hit(BoardDTO board) {
 		// TODO Auto-generated method stub
 		log.info("hit 확인" + board);
-		return mapper.hit(board);
+		return mapper.hit(board) == 1;
 	}
 
 

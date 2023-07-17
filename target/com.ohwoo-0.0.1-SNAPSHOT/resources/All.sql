@@ -61,6 +61,7 @@ CREATE TABLE board(
    content VARCHAR(500),
    regdate DATE,
    updateday DATE,
+   count bigint,
    CONSTRAINT brdfk_author_user_id FOREIGN KEY(author) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

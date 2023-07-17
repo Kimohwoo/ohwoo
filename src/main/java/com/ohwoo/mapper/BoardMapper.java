@@ -16,7 +16,7 @@ public interface BoardMapper {
 	public int delete(BoardDTO board);
 
 	public int hit(BoardDTO board);
-
+	
 	public List<BoardDTO> getListPaging(Criteria cri);
 
 }

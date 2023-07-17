@@ -12,11 +12,11 @@
 		<form action="/user/login" method="post" onsubmit="submitForm(); return false;">
 		  <div class="form-group">
 		    <label for="exampleInputEmail1">아이디</label>
-		    <input type="text" name="username" id="username" class="form-control" placeholder="아이디">
+		    <input type="text" name="username" id="username" class="form-control form-control-lg" placeholder="아이디">
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleInputPassword1">비밀번호</label>
-		    <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호">
+		    <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="비밀번호">
 		  </div>
 		  <button type="submit" class="btn btn-primary w-100">로그인</button>
 		</form>

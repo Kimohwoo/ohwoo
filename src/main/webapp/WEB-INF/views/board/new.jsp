@@ -13,16 +13,16 @@
 		<form>
 			<div class="form-group">
 				<label>제목</label>
-				<input class="form-control" name='title' type="text" />
+				<input class="form-control form-control-lg" name='title' type="text" />
 			</div>
 			<div class="form-group">
 				<label>닉네임</label>
-				<input class="form-control" name='nickName' readonly="readonly">
+				<input class="form-control form-control-sm" name='nickName' readonly="readonly">
 			</div>
 			
 			<div class="form-group">
 				<label>내용</label>
-				<textarea class="form-control" rows="10" name='content'></textarea>
+				<textarea class="form-control form-control-lg" rows="10" name='content'></textarea>
 			</div>
 			<button class="btn btn-warning" type="button" id="back">돌아가기</button>
 			<button class="btn btn-primary w-50" type="submit" >작성</button>

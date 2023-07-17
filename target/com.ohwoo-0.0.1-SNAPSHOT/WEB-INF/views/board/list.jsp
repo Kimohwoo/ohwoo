@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>게시판</title>
 </head>
-<body style="background-color: black;">
+<body class="bg-secondary">
 	<jsp:include page="../include/navHeader.jsp"/>
 	<div class="container">
 		<h3 style="text-align: center; padding-top: 50px; color: white;">게시판</h3>
@@ -17,6 +17,7 @@
 					<th>작성자</th>
 					<th>제목</th>
 					<th>내용</th>
+					<th>조회수</th>
 					<th>등록일</th>
 				</tr>
 			</thead>
@@ -28,6 +29,8 @@
 						<td><a href="javascript:article(<c:out value="${board.no}"/>)"><c:out value="${board.title}" /><c:out value="${board.content}" /></a></td>
 						
 						<td><c:out value="${board.content}" /></td>
+						
+						<td><c:out value="${board.count}"/></td>
 						
 						<td><c:out value="${board.regdate}" /></td>
                    	</tr>
@@ -78,7 +81,6 @@
 			"&amount=" + amount
 		}
 		
-		/* document.getElementById('next').style.display = 'none'; */
 		
 		function article(no){
 			location.href="/board/article?no=" + no;	

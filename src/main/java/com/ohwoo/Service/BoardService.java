@@ -15,7 +15,7 @@ public interface BoardService {
 
 	public boolean delete(BoardDTO board);
 
-	public int hit(BoardDTO board);
+	public boolean hit(BoardDTO board);
 
 	public List<BoardDTO> getListPaging(Criteria cri);
 

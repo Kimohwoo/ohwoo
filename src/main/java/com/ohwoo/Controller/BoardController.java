@@ -4,6 +4,10 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ohwoo.DTO.BoardDTO;
 import com.ohwoo.DTO.Criteria;
 import com.ohwoo.DTO.UserDTO;
+import com.ohwoo.DTO.VisitorDTO;
 import com.ohwoo.Service.BoardService;
 import com.ohwoo.Service.UserService;
 
@@ -33,6 +38,7 @@ public class BoardController {
 
 	private final BoardService boardService;
 	private final UserService userService;
+	private final String IDX = "boardIDX";
 
 	@GetMapping(value = "list", produces = "application/json")
 	public ModelAndView getList(@RequestParam("pageNum") int pageNum, @RequestParam("amount") int amount) {
@@ -66,11 +72,43 @@ public class BoardController {
 	}
 
 	@GetMapping("article")
-	public ModelAndView get(@RequestParam("no") long no) {
+	public ModelAndView get(@RequestParam("no") long no, HttpServletRequest request, HttpServletResponse response) {
 		log.info("디테일: get");
-		BoardDTO board = boardService.read(no);
+		BoardDTO board = boardService.read(no);		
+		
+		//게시판 조회수
+		Cookie[] cookies = request.getCookies();
+		Cookie oldCookie = null;
+		String hitValue = String.valueOf(no);
+		//쿠키 값 확인
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals(IDX)) {
+					oldCookie = cookie;
+					log.info("히트 값 확인 : " + oldCookie);
+					break;
+				}
+			}
+		}
+		//쿠키가 없는경우
+		if(oldCookie != null) {
+			if(!oldCookie.getValue().contains("[" + hitValue + "]")) {
+				boardService.hit(board);
+				oldCookie.setValue(oldCookie.getValue() + "_[" + hitValue + "]");
+				oldCookie.setMaxAge(-1);
+				response.addCookie(oldCookie);
+			}
+		} else {
+			boardService.hit(board);
+			Cookie newCookie = new Cookie(IDX,"["+hitValue+"]");
+			newCookie.setMaxAge(-1);
+			response.addCookie(newCookie);
+		}
+		
+		
+		//article 이동
 		ModelAndView mv = new ModelAndView("/board/article");
-		mv.addObject("article", board);
+		mv.addObject("article", boardService.read(no));
 		return mv;
 	}
 	

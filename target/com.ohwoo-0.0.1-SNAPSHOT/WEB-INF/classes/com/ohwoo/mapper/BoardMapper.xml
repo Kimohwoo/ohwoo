@@ -8,7 +8,7 @@
 
 	<select id="read" resultType="com.ohwoo.DTO.BoardDTO">
 	<![CDATA[
-		SELECT no, title, author, content, regdate, updateday
+		SELECT no, title, author, content, regdate, updateday, count
 		FROM board
 		WHERE no = #{no}
 		]]>
@@ -16,7 +16,7 @@
 	
 	<select id="getListPaging" resultType="com.ohwoo.DTO.BoardDTO">
 	<![CDATA[
-		SELECT no, title, author, content, regdate, updateday
+		SELECT no, title, author, content, regdate, updateday, count
 		FROM board
 		LIMIT #{amount} OFFSET #{skip}
 		
@@ -38,6 +38,12 @@
 		SET title = #{title},
 			content = #{content},
 			updateday = sysdate()
+		WHERE no = #{no}
+	</update>
+	
+	<update id="hit">
+		UPDATE board 
+		SET count = #{count}+1
 		WHERE no = #{no}
 	</update>
 	

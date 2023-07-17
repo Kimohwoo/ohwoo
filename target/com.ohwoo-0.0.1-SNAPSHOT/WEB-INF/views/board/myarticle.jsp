@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>게시글</title>
 </head>
-<body style="background-color: black;">
+<body class="bg-secondary">
 	<jsp:include page="../include/navHeader.jsp"/>
 	
 	<div class="container">

@@ -15,5 +15,6 @@ public class BoardDTO {
 	private String content;
 	private String regdate;
 	private String updateDay;
+	private long count;
 
 }

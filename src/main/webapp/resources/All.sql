@@ -1,5 +1,4 @@
 USE ohwoodb;
-show tables;
 
 DROP TABLE user;
 DROP TABLE user_auth;
@@ -7,7 +6,7 @@ DROP TABLE board;
 DROP TABLE files;
 DROP TABLE likes;
 DROP TABLE images;
-DROP TABLE visitor;
+DROP TABLE visitcount;
         
 ALTER TABLE board AUTO_INCREMENT = 1;
 
@@ -62,6 +61,7 @@ CREATE TABLE board(
    content VARCHAR(500),
    regdate DATE,
    updateday DATE,
+   count bigint,
    CONSTRAINT brdfk_author_user_id FOREIGN KEY(author) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
