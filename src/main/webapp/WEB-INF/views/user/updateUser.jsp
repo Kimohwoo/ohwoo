@@ -9,7 +9,7 @@
 <script type="text/javascript">
 </script>
 </head>
-<body class="bg-black">
+<body class="bg-secondary">
 	<jsp:include page="../include/navHeader.jsp" />
     <div class="container">
 

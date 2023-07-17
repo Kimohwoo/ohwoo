@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>게시판</title>
 </head>
-<body style="background-color: black;">
+<body class="bg-secondary">
 	<jsp:include page="../include/navHeader.jsp"/>
 	<div class="container">
 		<h3 style="text-align: center; padding-top: 50px; color: white;">게시판</h3>
@@ -78,7 +78,6 @@
 			"&amount=" + amount
 		}
 		
-		/* document.getElementById('next').style.display = 'none'; */
 		
 		function article(no){
 			location.href="/board/article?no=" + no;	

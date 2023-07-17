@@ -7,21 +7,22 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 	</head>
-	<body style="background-color: black;">
+	<body class="bg-secondary">
 <!-- 		<div> -->
  			<jsp:include page="../include/navHeader.jsp" />
 <!-- 		</div> -->
+		<div class="position-absolute top-50 start-50 translate-middle">
 		<form id="form" method="post">
 			<!-- Name input-->
 			<div class="form-floating mb-3">
 				<input class="form-control" id="username" name="username" type="text" placeholder="아이디를 입력해주세요" data-sb-validations="required" />
-				<label for="username">회원 아이디</label>
+				<label for="username">아이디</label>
 				<div class="invalid-feedback" data-sb-feedback="id:required">Id가 필요합니다.</div>
 			</div>
 <!-- 			Password input -->
 			<div class="form-floating mb-3">
 			    <input class="form-control" id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요" data-sb-validations="required" />
-			    <label for="password">Password</label>
+			    <label for="password">비밀번호</label>
 			    <div class="invalid-feedback" data-sb-feedback="password:required">Password가 필요합니다.</div>
 			</div>
 			<div class="form-floating mb-3">
@@ -32,32 +33,11 @@
 			<!-- Phone number input-->
 			<div class="form-floating mb-3">
 			    <input class="form-control" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
-			    <label for="phone">Phone number</label>
-			    <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+			    <label for="phone">휴대전화번호</label>
 			</div>
-			<!-- Submit success message-->
-			<!---->
-			<!-- This is what your users will see when the form-->
-			<!-- has successfully submitted-->
-			<div class="d-none" id="submitSuccessMessage">
-			    <div class="text-center mb-3">
-			        <div class="fw-bolder">Form submission successful!</div>
-			        To activate this form, sign up at
-			        <br />
-			        <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-			    </div>
-			</div>
-			<!-- Submit error message-->
-			<!---->
-			<!-- This is what your users will see when there is-->
-			<!-- an error submitting the form-->
-			<div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-			<!-- Submit Button-->
-		    <div class="col-lg-8 align-self-baseline">
-		    	<button class="btn btn-primary btn-xl" id="submitButton" type="submit">Submit</button>
-		    	<a href="/" class="btn btn-primary btn-xl">홈</a>
-	    	</div>
+	    	<button class="btn btn-primary w-100" id="submitButton" type="submit">Submit</button>
 		</form>
+		</div>
 		<script>
 		  $(document).ready(function() {
 		    $("form").on("submit", function(event) {

@@ -5,17 +5,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인</title>
 </head>
-<body>
-	CustomLogin 페이지 입니다.
-	<h2><c:out value="${error}"/></h2>
-	<h2><c:out value="${logout}"/></h2>
-	<form action="/user/login" method="post" onsubmit="submitForm(); return false;">
-		<input type="text" name="username" id="username">
-		<input type="password" name="password" id="password">
-		<input type="submit" value="Submit">
-	</form>
+<body class="bg-secondary">
+	<div class="position-absolute top-50 start-50 translate-middle">
+		<form action="/user/login" method="post" onsubmit="submitForm(); return false;">
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">아이디</label>
+		    <input type="text" name="username" id="username" class="form-control" placeholder="아이디">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">비밀번호</label>
+		    <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호">
+		  </div>
+		  <button type="submit" class="btn btn-primary w-100">로그인</button>
+		</form>
+	</div>
 	<script>
 	    function submitForm() {
 	       var formData = {

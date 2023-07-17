@@ -7,26 +7,27 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body class="bg-secondary">
 	<jsp:include page="../include/navHeader.jsp"/>
-	<form>
-		<div class="form-group">
-			<label>제목</label>
-			<input class="form-control" name='title' type="text" />
-		</div>
-		
-		<div class="form-group">
-			<label>닉네임</label>
-			<input class="form-control" name='nickName' readonly="readonly">
-		</div>
-		
-		<div class="form-group">
-			<label>내용</label>
-			<textarea class="form-control" rows="5" name='content'></textarea>
-		</div>
-		<button class="btn btn-primary" type="submit" >작성</button>
-		<button class="btn btn-secondary" type="button" id="back">돌아가기</button>
-	</form>
+	<div class="position-absolute top-50 start-50 translate-middle">
+		<form>
+			<div class="form-group">
+				<label>제목</label>
+				<input class="form-control" name='title' type="text" />
+			</div>
+			<div class="form-group">
+				<label>닉네임</label>
+				<input class="form-control" name='nickName' readonly="readonly">
+			</div>
+			
+			<div class="form-group">
+				<label>내용</label>
+				<textarea class="form-control" rows="10" name='content'></textarea>
+			</div>
+			<button class="btn btn-warning" type="button" id="back">돌아가기</button>
+			<button class="btn btn-primary w-50" type="submit" >작성</button>
+		</form>
+	</div>
 	<script>
 	
 		var nickName; // 전역 변수로 nickName 정의
