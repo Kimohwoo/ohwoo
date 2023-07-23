@@ -27,9 +27,9 @@ public class RootConfig {
 //		hikariConfig.setJdbcUrl("jdbc:mysql://172.17.0.3:3306/ohwoodb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8");
 		hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/ohwoodb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8");
 //		hikariConfig.setUsername("kowkow292");
-//		hikariConfig.setPassword("1993dhdn");
+		hikariConfig.setPassword("1993dhdn");
 		hikariConfig.setUsername("root");
-		hikariConfig.setPassword("mysql");
+//		hikariConfig.setPassword("mysql");
 		HikariDataSource dataSource = new HikariDataSource(hikariConfig);
 		return dataSource;
 	}
